@@ -1,0 +1,19 @@
+.app {
+  background-color: #131316;
+  min-height: 100vh;
+  color: #F2F2F3;
+}
+
+.page {
+  max-width: 1280px;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
+.main {
+  display: flex;
+}
+
+.main_container {
+  width: 50%;
+}
