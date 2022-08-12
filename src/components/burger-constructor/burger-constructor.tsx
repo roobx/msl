@@ -1,22 +1,32 @@
 import React from 'react';
 import burgerConstructorStyles from './burger-constructor.module.css';
 import { ConstructorElement, Button, DragIcon, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import { data } from '../../utils/data.js';
 
-function BurgerConstructor() {
 
-  const selectedBunId = "60666c42cc7b410027a1a9b1";
+
+interface dataObjProps {
+  _id?: string;
+  name: string;
+  price: number;
+  image: string;
+  type: string;
+
+}
+
+interface BurgerConstructorProps {
+  data: Array<dataObjProps>;
+  handleOrderDetailsClick: React.MouseEventHandler<Element>;
+}
+
+function BurgerConstructor({ data, handleOrderDetailsClick }: BurgerConstructorProps) {
+
+  const selectedBunId = "60d3b41abdacab0026a733c6";
   const selectedItemsId = [
-    "60666c42cc7b410027a1a9b5",
-    "60666c42cc7b410027a1a9b6",
-    "60666c42cc7b410027a1a9b6",
-    "60666c42cc7b410027a1a9b7",
-    "60666c42cc7b410027a1a9b4",
-    "60666c42cc7b410027a1a9b9"
+    "60d3b41abdacab0026a733cd",
+    "60d3b41abdacab0026a733c9",
+    "60d3b41abdacab0026a733cb"
   ]
   const selectedItems = selectedItemsId.map(id => data.find(item => id === item._id));
-
-  console.log(selectedItems);
 
   return (
     <>
@@ -75,7 +85,7 @@ function BurgerConstructor() {
           <p className='mt-1 mb-1 mr-2 text text_type_main-large'>610</p>
           <CurrencyIcon type="primary" />
         </div>
-        <Button type="primary" size="large">
+        <Button onClick={handleOrderDetailsClick} type="primary" size="large">
           Оформить заказ
         </Button>
       </div>
@@ -83,5 +93,6 @@ function BurgerConstructor() {
 
   );
 }
+
 
 export default BurgerConstructor;

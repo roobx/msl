@@ -1,9 +1,21 @@
 import React, { useState } from 'react';
 import burgerIngridientsStyles from './burger-ingridients.module.css';
 import { Tab, CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components'
-import { data } from '../../utils/data.js';
 
-function BurgerIngridients() {
+interface dataObjProps {
+  _id?: string;
+  name: string;
+  price: number;
+  image: string;
+  type: string;
+}
+
+interface BurgerIngridientsProps {
+  data: Array<dataObjProps>;
+}
+
+function BurgerIngriiednts({ data }: BurgerIngridientsProps) {
+
   const [current, setCurrent] = useState('one');
 
   return (
@@ -83,4 +95,4 @@ function BurgerIngridients() {
   );
 }
 
-export default BurgerIngridients;
+export default BurgerIngriiednts;
