@@ -6,7 +6,7 @@ import ModalOverlay from '../modal-overlay/modal-overlay';
 interface ModalProps {
   title: String;
   children: JSX.Element;
-  onClose: React.MouseEventHandler<HTMLButtonElement>;
+  onClose: () => void;
   opened: Boolean;
 }
 

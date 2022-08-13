@@ -5,7 +5,7 @@ import checkImg from '../../images/graphics.svg'
 
 interface OrderDetailsProps {
   opened: Boolean;
-  onClose: React.MouseEventHandler<HTMLButtonElement>;
+  onClose: () => void;
 }
 
 

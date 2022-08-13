@@ -1,0 +1,9 @@
+.container {
+  display: flex;
+  margin-top: 32px;
+  margin-bottom: 30px;
+}
+
+.text {
+ text-align: center;
+}

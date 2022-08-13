@@ -4,19 +4,18 @@ import ModalOverlayStyles from './modal-overlay.module.css';
 interface Props {
   children: JSX.Element;
   opened: Boolean;
-  onClose: React.MouseEventHandler<HTMLButtonElement>;
-
+  onClose: () => void;
 }
 
-function ModalOverlay({ opened, onClose, children }: Props) {
+function ModalOverlay({ opened, children, onClose }: Props) {
 
-  function handleOverlayClick(evt) {
+  function handleOverlayClick(evt: React.MouseEvent<HTMLDivElement>) {
     if (evt.target === evt.currentTarget) onClose();
   }
 
   return (
-    <div className={`${ModalOverlayStyles.overlay} ${opened && ModalOverlayStyles.popup_opened}` onClick={handleOverlayClick}}>
-      { children }
+    <div className={`${ModalOverlayStyles.overlay} ${opened && ModalOverlayStyles.popup_opened}`} onClick={handleOverlayClick}>
+      {children}
     </div >
   );
 }

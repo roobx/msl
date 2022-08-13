@@ -12,11 +12,16 @@ interface dataObjProps {
 
 interface BurgerIngridientsProps {
   data: Array<dataObjProps>;
+  handleIngredientDetailsClick: (ingridient: dataObjProps) => void;
 }
-
-function BurgerIngriiednts({ data }: BurgerIngridientsProps) {
+function BurgerIngriiednts({ data, handleIngredientDetailsClick }: BurgerIngridientsProps) {
 
   const [current, setCurrent] = useState('one');
+
+  const onIngredientClick = (item: dataObjProps) => (event: Object) => {
+    handleIngredientDetailsClick(item)
+  }
+
 
   return (
     <>
@@ -40,7 +45,7 @@ function BurgerIngriiednts({ data }: BurgerIngridientsProps) {
           {
             data.filter(item => item.type === 'bun')
               .map((i) => (
-                <div key={i._id} className={burgerIngridientsStyles.grid_element}>
+                <div onClick={onIngredientClick(i)} key={i._id} className={burgerIngridientsStyles.grid_element}>
                   <img src={i.image} />
                   <Counter count={1} size="default" />
                   <div className={burgerIngridientsStyles.item_price}>
@@ -58,7 +63,7 @@ function BurgerIngriiednts({ data }: BurgerIngridientsProps) {
           {
             data.filter(item => item.type === 'sauce')
               .map((i) => (
-                <div key={i._id} className={burgerIngridientsStyles.grid_element}>
+                <div onClick={onIngredientClick(i)} key={i._id} className={burgerIngridientsStyles.grid_element}>
                   <img src={i.image} />
                   <Counter count={1} size="default" />
                   <div className={burgerIngridientsStyles.item_price}>
@@ -76,7 +81,7 @@ function BurgerIngriiednts({ data }: BurgerIngridientsProps) {
           {
             data.filter(item => item.type === 'main')
               .map((i) => (
-                <div key={i._id} className={burgerIngridientsStyles.grid_element}>
+                <div onClick={onIngredientClick(i)} key={i._id} className={burgerIngridientsStyles.grid_element}>
                   <img src={i.image} />
                   <Counter count={1} size="default" />
                   <div className={burgerIngridientsStyles.item_price}>

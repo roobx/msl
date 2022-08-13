@@ -15,7 +15,7 @@ interface dataObjProps {
 
 interface BurgerConstructorProps {
   data: Array<dataObjProps>;
-  handleOrderDetailsClick: React.MouseEventHandler<Element>;
+  handleOrderDetailsClick: () => void;
 }
 
 function BurgerConstructor({ data, handleOrderDetailsClick }: BurgerConstructorProps) {
