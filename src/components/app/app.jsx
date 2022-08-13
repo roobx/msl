@@ -27,7 +27,6 @@ function App() {
   function handleIngredientDetailsClick(ingridient) {
     setselectedIngridient(ingridient);
     setIsIngredientDetailsOpen(true);
-    console.log(ingridient);
   }
 
 
