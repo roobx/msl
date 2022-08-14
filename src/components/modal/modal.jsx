@@ -3,15 +3,23 @@ import ReactDOM from 'react-dom';
 import ModalStyles from './modal.module.css';
 import ModalOverlay from '../modal-overlay/modal-overlay';
 
-interface ModalProps {
-  title: String;
-  children: JSX.Element;
-  onClose: () => void;
-  opened: Boolean;
-}
 
 
-function Modal({ title, children, onClose, opened }: ModalProps) {
+function Modal({ title, children, onClose, opened }) {
+
+  React.useEffect(() => {
+    function closeByEscape(evt) {
+      if (evt.key === 'Escape') {
+        onClose();
+      }
+    }
+    if (opened) {
+      document.addEventListener('keydown', closeByEscape);
+      return () => {
+        document.removeEventListener('keydown', closeByEscape);
+      }
+    }
+  }, [opened])
 
   return ReactDOM.createPortal(
     <ModalOverlay opened={opened} onClose={onClose}>
@@ -25,7 +33,7 @@ function Modal({ title, children, onClose, opened }: ModalProps) {
       </div>
     </ModalOverlay>
     ,
-    document.getElementById("react-modals")!
+    document.getElementById("react-modals")
   );
 }
 

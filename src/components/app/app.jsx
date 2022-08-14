@@ -31,16 +31,18 @@ function App() {
 
 
   function closePopup() {
+    setIsIngredientDetailsOpen(false);
     setIsOrderDetailsOpen(false);
-    setselectedIngridient({
+    setTimeout(setselectedIngridient({
       _id: '',
       name: '',
       price: 0,
       image: '',
       type: ''
-    });
-    setIsIngredientDetailsOpen(false);
+    }), 500);
   }
+
+
 
   React.useEffect(() => {
     fetch(url)

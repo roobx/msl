@@ -1,24 +1,19 @@
 import React, { useState } from 'react';
 import burgerIngridientsStyles from './burger-ingridients.module.css';
-import { Tab, CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components'
+import { Tab, CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
+import { ingredientType } from '../../utils/types';
 
-interface dataObjProps {
-  _id?: string;
-  name: string;
-  price: number;
-  image: string;
-  type: string;
-}
 
 interface BurgerIngridientsProps {
-  data: Array<dataObjProps>;
-  handleIngredientDetailsClick: (ingridient: dataObjProps) => void;
+  data: Array<ingredientType>;
+  handleIngredientDetailsClick: (ingridient: ingredientType) => void;
 }
+
 function BurgerIngriiednts({ data, handleIngredientDetailsClick }: BurgerIngridientsProps) {
 
   const [current, setCurrent] = useState('one');
 
-  const onIngredientClick = (item: dataObjProps) => (event: Object) => {
+  const onIngredientClick = (item: ingredientType) => (event: Object) => {
     handleIngredientDetailsClick(item)
   }
 

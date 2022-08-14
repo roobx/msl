@@ -1,20 +1,10 @@
 import React from 'react';
 import burgerConstructorStyles from './burger-constructor.module.css';
-import { ConstructorElement, Button, DragIcon, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-
-
-
-interface dataObjProps {
-  _id?: string;
-  name: string;
-  price: number;
-  image: string;
-  type: string;
-
-}
+import { ConstructorElement, Button, DragIcon, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { ingredientType } from '../../utils/types';
 
 interface BurgerConstructorProps {
-  data: Array<dataObjProps>;
+  data: Array<ingredientType>;
   handleOrderDetailsClick: () => void;
 }
 

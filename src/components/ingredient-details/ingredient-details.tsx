@@ -1,23 +1,12 @@
 import React from 'react';
 import IngredientDetailsStyles from './ingredient-details.module.css';
 import Modal from '../modal/modal';
-
-interface dataObjProps {
-  _id?: string;
-  name: string;
-  price: number;
-  image: string;
-  type: string;
-  calories: number;
-  proteins: number;
-  fat: number;
-  carbohydrates: number;
-}
+import { ingredientType } from '../../utils/types';
 
 interface IngredientDetailsProps {
   opened: Boolean;
   onClose: () => void;
-  selectedIngridient: dataObjProps;
+  selectedIngridient: ingredientType;
 }
 
 
