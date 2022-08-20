@@ -20,9 +20,13 @@ function App() {
     type: ''
   });
   const [isIngredientDetailsOpen, setIsIngredientDetailsOpen] = React.useState(false);
+  const [selectedItemsId, setSelectedItemsId] = useState([]);
 
-  function handleOrderDetailsClick() {
+
+  function handleOrderDetailsClick(ingridientsId) {
     setIsOrderDetailsOpen(true);
+    setSelectedItemsId(ingridientsId);
+    console.log(selectedItemsId);
   }
 
   function handleIngredientDetailsClick(ingridient) {
@@ -41,6 +45,7 @@ function App() {
       image: '',
       type: ''
     }), 500);
+    setSelectedItemsId([]);
   }
 
   React.useEffect(() => {
