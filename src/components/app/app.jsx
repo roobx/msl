@@ -20,13 +20,25 @@ function App() {
     type: ''
   });
   const [isIngredientDetailsOpen, setIsIngredientDetailsOpen] = React.useState(false);
-  const [selectedItemsId, setSelectedItemsId] = useState([]);
-
+  // const [selectedItemsId, setSelectedItemsId] = useState([]);
+  const [orderNumber, setOrderNumber] = useState(0);
 
   function handleOrderDetailsClick(ingridientsId) {
     setIsOrderDetailsOpen(true);
-    setSelectedItemsId(ingridientsId);
-    console.log(selectedItemsId);
+
+    console.log(ingridientsId);
+    fetch(`https://norma.nomoreparties.space/api/orders`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+      },
+      body: JSON.stringify({
+        ingredients: ingridientsId
+      })
+    })
+      .then(res => res.ok ? res.json() : Promise.reject(res.status))
+      .then((res) => { setOrderNumber(res.order.number) })
+      .catch(err => console.log(err));
   }
 
   function handleIngredientDetailsClick(ingridient) {
@@ -45,11 +57,11 @@ function App() {
       image: '',
       type: ''
     }), 500);
-    setSelectedItemsId([]);
+    // setSelectedItemsId([]);
   }
 
   React.useEffect(() => {
-    fetch(url)
+    fetch(`${url}ingredients`)
       .then(res => res.ok ? res.json() : Promise.reject(res.status))
       .then((res) => { setData(res.data) })
       .catch(err => console.log(err));
@@ -79,7 +91,7 @@ function App() {
 
       </div>
       <Modal title='Детали ингридиента' opened={isOrderDetailsOpen} onClose={closePopup}>
-        <OrderDetails />
+        <OrderDetails orderNumber={orderNumber} />
       </Modal>
       <Modal title='Детали ингридиента' opened={isIngredientDetailsOpen} onClose={closePopup}>
         <IngredientDetails selectedIngridient={selectedIngridient} />
