@@ -1,19 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import burgerIngridientsStyles from './burger-ingridients.module.css';
 import { Tab, CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
-import { ingredientType } from '../../utils/types';
+import { DataContext } from '../../services/data-context.js';
+import PropTypes from 'prop-types';
 
-
-interface BurgerIngridientsProps {
-  data: Array<ingredientType>;
-  handleIngredientDetailsClick: (ingridient: ingredientType) => void;
-}
-
-function BurgerIngriiednts({ data, handleIngredientDetailsClick }: BurgerIngridientsProps) {
+function BurgerIngriiednts({ handleIngredientDetailsClick }) {
 
   const [current, setCurrent] = useState('one');
-
-  const onIngredientClick = (item: ingredientType) => (event: Object) => {
+  const { data } = useContext(DataContext);
+  const onIngredientClick = (item) => (event) => {
     handleIngredientDetailsClick(item)
   }
 
@@ -94,5 +89,9 @@ function BurgerIngriiednts({ data, handleIngredientDetailsClick }: BurgerIngridi
 
   );
 }
+
+BurgerIngriiednts.propTypes = {
+  handleOrderDetailsClick: PropTypes.func.isRequired
+};
 
 export default BurgerIngriiednts;

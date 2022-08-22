@@ -20,14 +20,14 @@ function App() {
     type: ''
   });
   const [isIngredientDetailsOpen, setIsIngredientDetailsOpen] = React.useState(false);
-  // const [selectedItemsId, setSelectedItemsId] = useState([]);
   const [orderNumber, setOrderNumber] = useState(0);
+
+  const checkResponse = res => res.ok ? res.json() : Promise.reject(res.status);
+  const logError = err => console.log(err);
 
   function handleOrderDetailsClick(ingridientsId) {
     setIsOrderDetailsOpen(true);
-
-    console.log(ingridientsId);
-    fetch(`https://norma.nomoreparties.space/api/orders`, {
+    fetch(`${url}orders`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
@@ -36,16 +36,15 @@ function App() {
         ingredients: ingridientsId
       })
     })
-      .then(res => res.ok ? res.json() : Promise.reject(res.status))
+      .then(checkResponse)
       .then((res) => { setOrderNumber(res.order.number) })
-      .catch(err => console.log(err));
+      .catch(logError);
   }
 
   function handleIngredientDetailsClick(ingridient) {
     setselectedIngridient(ingridient);
     setIsIngredientDetailsOpen(true);
   }
-
 
   function closePopup() {
     setIsIngredientDetailsOpen(false);
@@ -57,45 +56,46 @@ function App() {
       image: '',
       type: ''
     }), 500);
-    // setSelectedItemsId([]);
   }
 
   React.useEffect(() => {
     fetch(`${url}ingredients`)
-      .then(res => res.ok ? res.json() : Promise.reject(res.status))
+      .then(checkResponse)
       .then((res) => { setData(res.data) })
-      .catch(err => console.log(err));
+      .catch(logError);
   }, []);
 
   return (
     <>
-      <div className={`text text_type_main-default ${appStyles.app}`}>
+      <DataContext.Provider value={{ data }}>
+        <div className={`text text_type_main-default ${appStyles.app}`}>
 
-        <div className={`pr-4 pl-4 ${appStyles.page}`}>
+          <div className={`pr-4 pl-4 ${appStyles.page}`}>
 
-          <AppHeader />
+            <AppHeader />
 
-          <main className={`${appStyles.main}`}>
-            <div className={`pt-10 mr-10 ${appStyles.main_container}`}>
-              <BurgerIngridients handleIngredientDetailsClick={handleIngredientDetailsClick} data={data} />
-            </div>
+            <main className={`${appStyles.main}`}>
+              <div className={`pt-10 mr-10 ${appStyles.main_container}`}>
+                <BurgerIngridients handleIngredientDetailsClick={handleIngredientDetailsClick} />
+              </div>
 
-            <div className={`pt-25 ${appStyles.main_container}`}>
-              <DataContext.Provider value={{ data }}>
+              <div className={`pt-25 ${appStyles.main_container}`}>
+
                 <BurgerConstructor handleOrderDetailsClick={handleOrderDetailsClick} />
-              </DataContext.Provider>
-            </div>
-          </main>
+
+              </div>
+            </main>
+
+          </div>
 
         </div>
-
-      </div>
-      <Modal title='Детали ингридиента' opened={isOrderDetailsOpen} onClose={closePopup}>
-        <OrderDetails orderNumber={orderNumber} />
-      </Modal>
-      <Modal title='Детали ингридиента' opened={isIngredientDetailsOpen} onClose={closePopup}>
-        <IngredientDetails selectedIngridient={selectedIngridient} />
-      </Modal>
+        <Modal title='Детали ингридиента' opened={isOrderDetailsOpen} onClose={closePopup}>
+          <OrderDetails orderNumber={orderNumber} />
+        </Modal>
+        <Modal title='Детали ингридиента' opened={isIngredientDetailsOpen} onClose={closePopup}>
+          <IngredientDetails selectedIngridient={selectedIngridient} />
+        </Modal>
+      </DataContext.Provider>
     </>
 
   );
