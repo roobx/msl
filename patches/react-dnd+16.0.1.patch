@@ -1,0 +1,80 @@
+diff --git a/node_modules/react-dnd/dist/core/DndProvider.js b/node_modules/react-dnd/dist/core/DndProvider.js
+index 749c9fe..38824f0 100644
+--- a/node_modules/react-dnd/dist/core/DndProvider.js
++++ b/node_modules/react-dnd/dist/core/DndProvider.js
+@@ -4,7 +4,7 @@ function _objectWithoutProperties(source, excluded) {
+     var key, i;
+     if (Object.getOwnPropertySymbols) {
+         var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
+-        for(i = 0; i < sourceSymbolKeys.length; i++){
++        for (i = 0; i < sourceSymbolKeys.length; i++) {
+             key = sourceSymbolKeys[i];
+             if (excluded.indexOf(key) >= 0) continue;
+             if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;
+@@ -18,41 +18,41 @@ function _objectWithoutPropertiesLoose(source, excluded) {
+     var target = {};
+     var sourceKeys = Object.keys(source);
+     var key, i;
+-    for(i = 0; i < sourceKeys.length; i++){
++    for (i = 0; i < sourceKeys.length; i++) {
+         key = sourceKeys[i];
+         if (excluded.indexOf(key) >= 0) continue;
+         target[key] = source[key];
+     }
+     return target;
+ }
+-import { jsx as _jsx } from "react/jsx-runtime";
++import { jsx as _jsx } from "react/jsx-runtime.js";
+ import { createDragDropManager } from 'dnd-core';
+ import { memo, useEffect } from 'react';
+ import { DndContext } from './DndContext.js';
+ let refCount = 0;
+ const INSTANCE_SYM = Symbol.for('__REACT_DND_CONTEXT_INSTANCE__');
+ var DndProvider = /*#__PURE__*/ memo(function DndProvider(_param) {
+-    var { children  } = _param, props = _objectWithoutProperties(_param, [
++    var { children } = _param, props = _objectWithoutProperties(_param, [
+         "children"
+     ]);
+     const [manager, isGlobalInstance] = getDndContextValue(props) // memoized from props
+-    ;
++        ;
+     /**
+ 		 * If the global context was used to store the DND context
+ 		 * then where theres no more references to it we should
+ 		 * clean it up to avoid memory leaks
+-		 */ useEffect(()=>{
+-        if (isGlobalInstance) {
+-            const context = getGlobalContext();
+-            ++refCount;
+-            return ()=>{
+-                if (--refCount === 0) {
+-                    context[INSTANCE_SYM] = null;
+-                }
+-            };
+-        }
+-        return;
+-    }, []);
++		 */ useEffect(() => {
++            if (isGlobalInstance) {
++                const context = getGlobalContext();
++                ++refCount;
++                return () => {
++                    if (--refCount === 0) {
++                        context[INSTANCE_SYM] = null;
++                    }
++                };
++            }
++            return;
++        }, []);
+     return /*#__PURE__*/ _jsx(DndContext.Provider, {
+         value: manager,
+         children: children
+@@ -60,7 +60,7 @@ var DndProvider = /*#__PURE__*/ memo(function DndProvider(_param) {
+ });
+ /**
+  * A React component that provides the React-DnD context
+- */ export { DndProvider,  };
++ */ export { DndProvider, };
+ function getDndContextValue(props) {
+     if ('manager' in props) {
+         const manager = {

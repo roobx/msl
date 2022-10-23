@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { url } from '../../utils/consts.js'
+import { useEffect } from 'react';
 import appStyles from './app.module.css';
 import AppHeader from '../app-header/app-header';
 import BurgerIngridients from '../burger-ingridients/burger-ingridients';
@@ -7,95 +6,65 @@ import BurgerConstructor from '../burger-constructor/burger-constructor';
 import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import Modal from '../modal/modal.jsx';
-import { DataContext } from '../../services/data-context.js';
+import { useSelector, useDispatch } from 'react-redux';
+import { getIngridients } from '../../services/actions/actions';
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 function App() {
-  const [data, setData] = useState([]);
-  const [isOrderDetailsOpen, setIsOrderDetailsOpen] = React.useState(false);
-  const [selectedIngridient, setselectedIngridient] = React.useState({
-    _id: '',
-    name: '',
-    price: 0,
-    image: '',
-    type: ''
-  });
-  const [isIngredientDetailsOpen, setIsIngredientDetailsOpen] = React.useState(false);
-  const [orderNumber, setOrderNumber] = useState(0);
+  const dispatch = useDispatch();
 
-  const checkResponse = res => res.ok ? res.json() : Promise.reject(res.status);
-  const logError = err => console.log(err);
-
-  function handleOrderDetailsClick(ingridientsId) {
-    setIsOrderDetailsOpen(true);
-    fetch(`${url}orders`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8'
-      },
-      body: JSON.stringify({
-        ingredients: ingridientsId
-      })
-    })
-      .then(checkResponse)
-      .then((res) => { setOrderNumber(res.order.number) })
-      .catch(logError);
-  }
-
-  function handleIngredientDetailsClick(ingridient) {
-    setselectedIngridient(ingridient);
-    setIsIngredientDetailsOpen(true);
-  }
+  const { currentIngridientDetails } = useSelector(state => state.currentIngridientDetails);
+  const { orderDetailsOpened } = useSelector(state => state.order);
 
   function closePopup() {
-    setIsIngredientDetailsOpen(false);
-    setIsOrderDetailsOpen(false);
-    setTimeout(setselectedIngridient({
-      _id: '',
-      name: '',
-      price: 0,
-      image: '',
-      type: ''
-    }), 500);
+
+    dispatch({
+      type: 'HIDE_INGRIDIENT_DETAILS'
+    });
+
+    dispatch({
+      type: 'CLOSE_ORDER_DETAILS'
+    });
+    dispatch({
+      type: 'CLEAR_SELECTED_CONSTRUCTOR_INGRIDIENTS'
+    });
   }
 
-  React.useEffect(() => {
-    fetch(`${url}ingredients`)
-      .then(checkResponse)
-      .then((res) => { setData(res.data) })
-      .catch(logError);
+  useEffect(() => {
+    dispatch(getIngridients())
   }, []);
 
   return (
     <>
-      <DataContext.Provider value={{ data }}>
-        <div className={`text text_type_main-default ${appStyles.app}`}>
 
-          <div className={`pr-4 pl-4 ${appStyles.page}`}>
+      <div className={`text text_type_main-default ${appStyles.app}`}>
 
-            <AppHeader />
+        <div className={`pr-4 pl-4 ${appStyles.page}`}>
 
-            <main className={`${appStyles.main}`}>
+          <AppHeader />
+
+          <main className={`${appStyles.main}`}>
+            <DndProvider backend={HTML5Backend}>
               <div className={`pt-10 mr-10 ${appStyles.main_container}`}>
-                <BurgerIngridients handleIngredientDetailsClick={handleIngredientDetailsClick} />
+                <BurgerIngridients />
               </div>
-
               <div className={`pt-25 ${appStyles.main_container}`}>
-
-                <BurgerConstructor handleOrderDetailsClick={handleOrderDetailsClick} />
-
+                <BurgerConstructor />
               </div>
-            </main>
-
-          </div>
+            </DndProvider >
+          </main>
 
         </div>
-        <Modal title='Детали ингридиента' opened={isOrderDetailsOpen} onClose={closePopup}>
-          <OrderDetails orderNumber={orderNumber} />
-        </Modal>
-        <Modal title='Детали ингридиента' opened={isIngredientDetailsOpen} onClose={closePopup}>
-          <IngredientDetails selectedIngridient={selectedIngridient} />
-        </Modal>
-      </DataContext.Provider>
+
+      </div>
+      <Modal title='Детали ингридиента' opened={orderDetailsOpened} onClose={closePopup}>
+        <OrderDetails />
+      </Modal>
+      <Modal title='Детали ингридиента' opened={currentIngridientDetails._id ? true : false} onClose={closePopup}>
+        <IngredientDetails />
+      </Modal>
+
     </>
 
   );

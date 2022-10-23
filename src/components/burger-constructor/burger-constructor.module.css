@@ -1,7 +1,8 @@
 
 .items {
-  max-height: 450px;
+  height: 450px;
   overflow-y: scroll;
+  cursor: grab;
 }
 
 .items::-webkit-scrollbar {
@@ -32,3 +33,4 @@
   margin-right: 40px;
   margin-left: auto;
 }
+

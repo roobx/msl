@@ -1,11 +1,8 @@
 import checkImg from '../../images/graphics.svg'
+import { useSelector } from 'react-redux';
 
-interface OrderDetailsProps {
-  orderNumber: Number;
-}
-
-function OrderDetails({ orderNumber }: OrderDetailsProps) {
-
+function OrderDetails() {
+  const { orderNumber } = useSelector(state => state.order);
   return (
 
     <>
