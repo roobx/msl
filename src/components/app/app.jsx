@@ -7,7 +7,12 @@ import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import Modal from '../modal/modal.jsx';
 import { useSelector, useDispatch } from 'react-redux';
-import { getIngridients } from '../../services/actions/actions';
+import {
+  getIngridients,
+  HIDE_INGRIDIENT_DETAILS,
+  CLOSE_ORDER_DETAILS,
+  CLEAR_SELECTED_CONSTRUCTOR_INGRIDIENTS
+} from '../../services/actions/actions';
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
@@ -20,14 +25,14 @@ function App() {
   function closePopup() {
 
     dispatch({
-      type: 'HIDE_INGRIDIENT_DETAILS'
+      type: HIDE_INGRIDIENT_DETAILS
     });
 
     dispatch({
-      type: 'CLOSE_ORDER_DETAILS'
+      type: CLOSE_ORDER_DETAILS
     });
     dispatch({
-      type: 'CLEAR_SELECTED_CONSTRUCTOR_INGRIDIENTS'
+      type: CLEAR_SELECTED_CONSTRUCTOR_INGRIDIENTS
     });
   }
 
@@ -58,7 +63,7 @@ function App() {
         </div>
 
       </div>
-      <Modal title='Детали ингридиента' opened={orderDetailsOpened} onClose={closePopup}>
+      <Modal title='' opened={orderDetailsOpened} onClose={closePopup}>
         <OrderDetails />
       </Modal>
       <Modal title='Детали ингридиента' opened={currentIngridientDetails._id ? true : false} onClose={closePopup}>

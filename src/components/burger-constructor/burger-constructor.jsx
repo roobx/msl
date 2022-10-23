@@ -1,11 +1,18 @@
-import React, { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import burgerConstructorStyles from './burger-constructor.module.css';
 import { ConstructorElement, Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
-import { getOrderNumber, deleteSelectedIngridient } from '../../services/actions/actions';
+import {
+  getOrderNumber,
+  deleteSelectedIngridient,
+  SET_BUN_ID,
+  ADD_SELECTED_CONSTRUCTOR_INGRIDIENTS,
+  DRAG_SELECTED_CONSTRUCTOR_INGRIDIENTS
+} from '../../services/actions/actions';
 
 import { useDrop } from 'react-dnd';
 import ConstructorItem from './constructorItem'
+import { v4 as uuidv4 } from 'uuid';
 
 function BurgerConstructor() {
 
@@ -24,13 +31,13 @@ function BurgerConstructor() {
     drop({ _id, type }) {
       if (type === 'bun') {
         dispatch({
-          type: 'SET_BUN_ID',
+          type: SET_BUN_ID,
           id: _id
         });
       }
       else {
         dispatch({
-          type: 'ADD_SELECTED_CONSTRUCTOR_INGRIDIENTS',
+          type: ADD_SELECTED_CONSTRUCTOR_INGRIDIENTS,
           id: _id
         });
       }
@@ -67,10 +74,10 @@ function BurgerConstructor() {
 
 
     dispatch({
-      type: 'DRAG_SELECTED_CONSTRUCTOR_INGRIDIENTS',
+      type: DRAG_SELECTED_CONSTRUCTOR_INGRIDIENTS,
       newIngridientsId: newCards,
     })
-  }, [selectedConstructorIngridients, dispatch]);
+  }, [selectedConstructorIngridients, dispatch], shallowEqual);
 
 
   return (
@@ -88,10 +95,12 @@ function BurgerConstructor() {
       <div ref={dropTarget} className={burgerConstructorStyles.items}>
         {
           selectedItems
-            .map((item, index) =>
-            (
-              <ConstructorItem key={`${item._id}${index}`} item={item} handleClose={handleClose} index={index} handleDrag={handleDrag} />
-            )
+            .map((item, index) => {
+              const uuid = uuidv4();
+              return (
+                <ConstructorItem key={uuid} item={item} handleClose={handleClose} index={index} handleDrag={handleDrag} />
+              )
+            }
             )
         }
       </div>

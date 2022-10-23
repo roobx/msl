@@ -61,7 +61,7 @@ export function getOrderNumber(ingridientsId) {
           orderNumber: res.order.number
         });
         dispatch({
-          type: 'OPEN_ORDER_DETAILS'
+          type: OPEN_ORDER_DETAILS
         });
       })
       .catch(err => {
@@ -81,7 +81,7 @@ export function deleteSelectedIngridient(id, ingridientsId) {
       else return true;
     });
     dispatch({
-      type: 'DELETE_SELECTED_CONSTRUCTOR_INGRIDIENTS',
+      type: DELETE_SELECTED_CONSTRUCTOR_INGRIDIENTS,
       newIngridientsId: newIngridientsId
     });
 

@@ -1,13 +1,14 @@
-import React, { useState, useCallback, useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import burgerConstructorStyles from './burger-constructor.module.css';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrag, useDrop } from 'react-dnd';
-import PropTypes from 'prop-types';
+import PropTypes, { shape } from 'prop-types';
+import { ingredientType } from '../../utils/types';
 
 function ConstructorItem({ item, handleClose, index, handleDrag }) {
 
   const ref = useRef(null);
-  const [{ handlerId }, drop] = useDrop({
+  const [, drop] = useDrop({
 
     accept: 'component',
     collect(monitor) {
@@ -88,7 +89,7 @@ function ConstructorItem({ item, handleClose, index, handleDrag }) {
 }
 
 ConstructorItem.propTypes = {
-  item: PropTypes.object.isRequired,
+  item: shape(ingredientType).isRequired,
   handleClose: PropTypes.func.isRequired,
   handleDrag: PropTypes.func.isRequired,
   index: PropTypes.number,
