@@ -66,19 +66,25 @@ export const constuctorReducer = (state = initialState, action) => {
           [...state.selectedConstructorIngridients,
           action.id,
           ],
+        selectedItems: [
+          ...state.selectedItems,
+          action.item
+        ]
       };
     }
     case DELETE_SELECTED_CONSTRUCTOR_INGRIDIENTS: {
       return {
         ...state,
-        selectedConstructorIngridients: action.newIngridientsId
+        selectedConstructorIngridients: action.newIngridientsId,
+        selectedItems: action.newIngridientsId.map(item => state.selectedItems.find(i => i._id === item))
       }
     }
 
     case DRAG_SELECTED_CONSTRUCTOR_INGRIDIENTS: {
       return {
         ...state,
-        selectedConstructorIngridients: action.newIngridientsId
+        selectedConstructorIngridients: action.newIngridientsId,
+        selectedItems: action.newIngridientsId.map(item => state.selectedItems.find(i => i._id === item))
       }
     }
     case CLEAR_SELECTED_CONSTRUCTOR_INGRIDIENTS: {
@@ -86,16 +92,15 @@ export const constuctorReducer = (state = initialState, action) => {
         ...state,
         selectedConstructorIngridients: [],
         bunId: '',
+        selectedItems: []
       }
     }
-
     case SET_BUN_ID: {
       return {
         ...state,
         bunId: action.id
       };
     }
-
     default:
       return state
   }

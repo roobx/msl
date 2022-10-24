@@ -19,10 +19,11 @@ function BurgerConstructor() {
   const dispatch = useDispatch();
   const [selectedBun, setSelectedBun] = useState(null);
   const [totalPrice, setTotalPrice] = useState(0);
-  const { selectedConstructorIngridients, orderNumberRequest, selectedItems, bun } = useSelector(state => ({
+  const { ingridients, selectedConstructorIngridients, orderNumberRequest, selectedItems, bun } = useSelector(state => ({
+    ingridients: state.ingridients.ingridients,
     selectedConstructorIngridients: state.constuctor.selectedConstructorIngridients,
     orderNumberRequest: state.order.orderNumberRequest,
-    selectedItems: state.constuctor.selectedConstructorIngridients.map(item => state.ingridients.ingridients.find(i => i._id === item)),
+    selectedItems: state.constuctor.selectedItems,
     bun: state.ingridients.ingridients.find(i => i._id === state.constuctor.bunId)
   }), shallowEqual);
 
@@ -38,7 +39,11 @@ function BurgerConstructor() {
       else {
         dispatch({
           type: ADD_SELECTED_CONSTRUCTOR_INGRIDIENTS,
-          id: _id
+          id: _id,
+          item: {
+            ...ingridients.find(i => i._id === _id),
+            dragId: uuidv4()
+          }
         });
       }
     },
@@ -58,9 +63,8 @@ function BurgerConstructor() {
 
 
   const onButtonClick = useCallback(() => {
-    dispatch(getOrderNumber(selectedConstructorIngridients));
-
-  }, [selectedConstructorIngridients]);
+    dispatch(getOrderNumber([...selectedConstructorIngridients, bun._id]));
+  }, [selectedConstructorIngridients, bun]);
 
   const handleClose = useCallback((id) => {
     dispatch(deleteSelectedIngridient(id, selectedConstructorIngridients));
@@ -96,9 +100,9 @@ function BurgerConstructor() {
         {
           selectedItems
             .map((item, index) => {
-              const uuid = uuidv4();
+
               return (
-                <ConstructorItem key={uuid} item={item} handleClose={handleClose} index={index} handleDrag={handleDrag} />
+                <ConstructorItem key={item.dragId} item={item} handleClose={handleClose} index={index} handleDrag={handleDrag} />
               )
             }
             )
