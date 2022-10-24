@@ -76,7 +76,7 @@ export const constuctorReducer = (state = initialState, action) => {
       return {
         ...state,
         selectedConstructorIngridients: action.newIngridientsId,
-        selectedItems: action.newIngridientsId.map(item => state.selectedItems.find(i => i._id === item))
+        selectedItems: action.newIngridientsIdSelectedItems
       }
     }
 
@@ -84,7 +84,8 @@ export const constuctorReducer = (state = initialState, action) => {
       return {
         ...state,
         selectedConstructorIngridients: action.newIngridientsId,
-        selectedItems: action.newIngridientsId.map(item => state.selectedItems.find(i => i._id === item))
+        selectedItems: action.newSelectedItems
+
       }
     }
     case CLEAR_SELECTED_CONSTRUCTOR_INGRIDIENTS: {

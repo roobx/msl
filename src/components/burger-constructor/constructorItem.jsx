@@ -8,7 +8,7 @@ import { ingredientType } from '../../utils/types';
 function ConstructorItem({ item, handleClose, index, handleDrag }) {
 
   const ref = useRef(null);
-  const [, drop] = useDrop({
+  const [{ handlerId }, drop] = useDrop({
 
     accept: 'component',
     collect(monitor) {
@@ -82,7 +82,8 @@ function ConstructorItem({ item, handleClose, index, handleDrag }) {
         text={item.name}
         price={item.price}
         thumbnail={item.image}
-        handleClose={() => handleClose(item._id)}
+        handleClose={() => handleClose(item.dragId)}
+        data-handler-id={handlerId}
       />
     </div>
   );

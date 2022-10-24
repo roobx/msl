@@ -73,16 +73,16 @@ export function getOrderNumber(ingridientsId) {
   }
 }
 
-export function deleteSelectedIngridient(id, ingridientsId) {
+export function deleteSelectedIngridient(dragId, selectedItems) {
   return function (dispatch) {
-    let flag = true;
-    const newIngridientsId = ingridientsId.filter((item) => {
-      if (flag && item === id) { flag = false; return item !== id; }
-      else return true;
+
+    const newIngridientsIdSelectedItems = selectedItems.filter((item) => {
+      return item.dragId !== dragId
     });
     dispatch({
       type: DELETE_SELECTED_CONSTRUCTOR_INGRIDIENTS,
-      newIngridientsId: newIngridientsId
+      newIngridientsId: newIngridientsIdSelectedItems.map(i => i._id),
+      newIngridientsIdSelectedItems: newIngridientsIdSelectedItems
     });
 
   }

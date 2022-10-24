@@ -67,21 +67,28 @@ function BurgerConstructor() {
   }, [selectedConstructorIngridients, bun]);
 
   const handleClose = useCallback((id) => {
-    dispatch(deleteSelectedIngridient(id, selectedConstructorIngridients));
-  }, [selectedConstructorIngridients]);
+    dispatch(deleteSelectedIngridient(id, selectedItems));
+  }, [selectedItems]);
 
   const handleDrag = useCallback((dragIndex, hoverIndex) => {
-    const dragCard = selectedConstructorIngridients[dragIndex];
-    const newCards = [...selectedConstructorIngridients]
-    newCards.splice(dragIndex, 1)
-    newCards.splice(hoverIndex, 0, dragCard)
+    // const dragCard = selectedConstructorIngridients[dragIndex];
+    // const newCards = [...selectedConstructorIngridients];
+    // newCards.splice(dragIndex, 1);
+    // newCards.splice(hoverIndex, 0, dragCard);
+
+    const dragCard = selectedItems[dragIndex];
+    const newCards = [...selectedItems];
+    newCards.splice(dragIndex, 1);
+    newCards.splice(hoverIndex, 0, dragCard);
 
 
     dispatch({
       type: DRAG_SELECTED_CONSTRUCTOR_INGRIDIENTS,
-      newIngridientsId: newCards,
+      newIngridientsId: newCards.map(i => i._id),
+      newSelectedItems: newCards
     })
-  }, [selectedConstructorIngridients, dispatch], shallowEqual);
+
+  }, [selectedItems, selectedConstructorIngridients, dispatch], shallowEqual);
 
 
   return (
@@ -102,7 +109,7 @@ function BurgerConstructor() {
             .map((item, index) => {
 
               return (
-                <ConstructorItem key={item.dragId} item={item} handleClose={handleClose} index={index} handleDrag={handleDrag} />
+                <ConstructorItem key={item?.dragId} item={item} handleClose={handleClose} index={index} handleDrag={handleDrag} />
               )
             }
             )
