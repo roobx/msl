@@ -1,78 +1,113 @@
-import { useEffect } from 'react';
+import { useCallback } from 'react';
+import { BrowserRouter as Router, Switch, Route, useHistory } from 'react-router-dom';
+import { useLocation } from "react-router";
 import appStyles from './app.module.css';
 import AppHeader from '../app-header/app-header';
-import BurgerIngridients from '../burger-ingridients/burger-ingridients';
-import BurgerConstructor from '../burger-constructor/burger-constructor';
-import OrderDetails from '../order-details/order-details';
+import MainPage from '../pages/main-page';
+import Login from '../pages/login';
+import Register from '../pages/register';
+import ForgotPassword from '../pages/forgot-password';
+import ResetPassword from '../pages/reset-password';
+import Profile from '../pages/profile';
+import ProtectedRoute from '../protected-route/protected-route';
 import IngredientDetails from '../ingredient-details/ingredient-details';
-import Modal from '../modal/modal.jsx';
-import { useSelector, useDispatch } from 'react-redux';
 import {
-  getIngridients,
   HIDE_INGRIDIENT_DETAILS,
-  CLOSE_ORDER_DETAILS,
-  CLEAR_SELECTED_CONSTRUCTOR_INGRIDIENTS
 } from '../../services/actions/actions';
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+import Modal from '../modal/modal.jsx';
 
 function App() {
-  const dispatch = useDispatch();
+  const ModalSwitch = () => {
+    const location = useLocation();
+    const history = useHistory();
 
-  const { currentIngridientDetails } = useSelector(state => state.currentIngridientDetails);
-  const { orderDetailsOpened } = useSelector(state => state.order);
+    let background = location.state && location.state.background;
+    const dispatch = useDispatch();
+    const { currentIngridientDetails } = useSelector(state => state.currentIngridientDetails);
+    const closePopupIngridientDetails = useCallback(() => {
+      dispatch({
+        type: HIDE_INGRIDIENT_DETAILS
+      });
+      if (location?.state?.id) history.goBack()
+      else history.push('/')
+    }, [dispatch], shallowEqual);
 
-  function closePopup() {
+    return (
+      <>
+        <div className={`text text_type_main-default ${appStyles.app}`}>
+          <div className={`pr-4 pl-4 ${appStyles.page}`}>
+            <AppHeader />
+            <main className={`${appStyles.main}`}>
+              <Switch location={background || location}>
+                <Route exact path="/">
+                  <MainPage />
+                </Route>
 
-    dispatch({
-      type: HIDE_INGRIDIENT_DETAILS
-    });
+                <Route exact path="/login">
+                  <Login />
+                </Route>
 
-    dispatch({
-      type: CLOSE_ORDER_DETAILS
-    });
-    dispatch({
-      type: CLEAR_SELECTED_CONSTRUCTOR_INGRIDIENTS
-    });
-  }
+                <Route exact path="/register">
+                  <Register />
+                </Route>
 
-  useEffect(() => {
-    dispatch(getIngridients())
-  }, []);
+                <Route exact path="/forgot-password">
+                  <ForgotPassword />
+                </Route>
 
-  return (
-    <>
+                <Route exact path="/reset-password">
+                  <ResetPassword />
+                </Route>
 
-      <div className={`text text_type_main-default ${appStyles.app}`}>
+                <ProtectedRoute exact path="/profile">
+                  <Profile />
+                </ProtectedRoute>
+                <ProtectedRoute exact path="/profile/orders">
+                  <Profile />
+                </ProtectedRoute>
+                <Route path='/ingredients/:ingredientId' exact>
+                  <Modal
+                    title='Детали ингридиента'
+                    opened={true}
+                    onClose={closePopupIngridientDetails}
+                  >
+                    <IngredientDetails />
+                  </Modal>
 
-        <div className={`pr-4 pl-4 ${appStyles.page}`}>
+                </Route>
+              </Switch>
 
-          <AppHeader />
-
-          <main className={`${appStyles.main}`}>
-            <DndProvider backend={HTML5Backend}>
-              <div className={`pt-10 mr-10 ${appStyles.main_container}`}>
-                <BurgerIngridients />
-              </div>
-              <div className={`pt-25 ${appStyles.main_container}`}>
-                <BurgerConstructor />
-              </div>
-            </DndProvider >
-          </main>
-
+              {background && (
+                <Route
+                  path='/ingredients/:ingredientId'
+                  children={
+                    <Modal
+                      title='Детали ингридиента'
+                      opened={currentIngridientDetails._id ? true : false}
+                      onClose={closePopupIngridientDetails}
+                    >
+                      <IngredientDetails />
+                    </Modal>
+                  }
+                />
+              )}
+            </main>
+          </div>
         </div>
 
-      </div>
-      <Modal title='' opened={orderDetailsOpened} onClose={closePopup}>
-        <OrderDetails />
-      </Modal>
-      <Modal title='Детали ингридиента' opened={currentIngridientDetails._id ? true : false} onClose={closePopup}>
-        <IngredientDetails />
-      </Modal>
+      </>
+    );
+  };
 
-    </>
-
+  return (
+    <Router>
+      <ModalSwitch />
+    </Router>
   );
 }
 
+
 export default App;
+
+

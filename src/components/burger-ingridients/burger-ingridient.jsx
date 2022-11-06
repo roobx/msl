@@ -1,3 +1,6 @@
+import { Link } from 'react-router-dom';
+import { useLocation } from "react-router";
+
 import burgerIngridientsStyles from './burger-ingridients.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes, { shape } from 'prop-types';
@@ -10,10 +13,19 @@ function BurgerIngridient({ ingridient, onClick, count }) {
     type: 'ingridient',
     item: { _id, type }
   });
+  const location = useLocation();
+
 
   return (
-
-    <div ref={ref} onClick={onClick} className={burgerIngridientsStyles.grid_element}>
+    <Link
+      ref={ref}
+      onClick={onClick}
+      className={burgerIngridientsStyles.grid_element}
+      to={{
+        pathname: `/ingredients/${_id}`,
+        state: { background: location, id: _id },
+      }}
+    >
       <img src={ingridient.image} />
       {count > 0 && <Counter count={count} size="default" />}
       <div className={burgerIngridientsStyles.item_price}>
@@ -21,7 +33,7 @@ function BurgerIngridient({ ingridient, onClick, count }) {
         <CurrencyIcon type="primary" />
       </div>
       <p className={`text text_type_main-default ${burgerIngridientsStyles.item_name}`}>{ingridient.name}</p>
-    </div>
+    </Link>
 
 
   );

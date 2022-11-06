@@ -3,7 +3,8 @@ import {
   ingridientsReducer,
   constuctorReducer,
   currentIngridientDetailsReducer,
-  orderReducer
+  orderReducer,
+  currentUserReducer
 } from './reducers';
 
 export const rootReducer = combineReducers({
@@ -11,4 +12,5 @@ export const rootReducer = combineReducers({
   constuctor: constuctorReducer,
   currentIngridientDetails: currentIngridientDetailsReducer,
   order: orderReducer,
+  currentUser: currentUserReducer,
 });

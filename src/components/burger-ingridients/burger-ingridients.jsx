@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
+
 import burgerIngridientsStyles from './burger-ingridients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
@@ -6,6 +7,7 @@ import BurgerIngridient from './burger-ingridient'
 import {
   SHOW_INGRIDIENT_DETAILS
 } from '../../services/actions/actions';
+
 
 function BurgerIngriiednts() {
   const dispatch = useDispatch();
@@ -36,12 +38,13 @@ function BurgerIngriiednts() {
     },
   ]
 
-  const onIngredientClick = (item) => (event) => {
+  const onIngredientClick = useCallback((item) => (event) => {
     dispatch({
       type: SHOW_INGRIDIENT_DETAILS,
       currentIngridient: item
     });
-  }
+
+  }, [dispatch]);
 
   const handleObserver = useCallback((id) => {
     setCurrent(id);

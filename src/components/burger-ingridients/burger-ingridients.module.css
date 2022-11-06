@@ -35,6 +35,8 @@
   justify-content: flex-start;
   position: relative;
   cursor: grab;
+  text-decoration: none;
+  color: #F2F2F3;
 }
 
 .item_price {

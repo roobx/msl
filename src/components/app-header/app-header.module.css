@@ -26,4 +26,10 @@
   color: inherit;
   background-color: transparent;
   cursor: pointer;
+  text-decoration: none;
+  color: #8585AD;
+}
+
+.menubutton_active {
+  color: #F2F2F3;
 }
