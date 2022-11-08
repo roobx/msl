@@ -1,27 +1,38 @@
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useMemo, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import IngredientDetailsStyles from './ingredient-details.module.css';
 import { useLocation } from "react-router";
 import {
-  getIngridients,
-} from '../../services/actions/actions';
+  SHOW_INGRIDIENT_DETAILS,
+} from '../../services/actions/current-ingridient';
+
 
 function IngredientDetails() {
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getIngridients())
-  }, [dispatch]);
-
-  let currentIngridientDetails = useSelector(state => state.currentIngridientDetails.currentIngridientDetails);
+  const currentIngridientDetailsStore = useSelector(state => state.currentIngridientDetails.currentIngridientDetails);
   const location = useLocation();
   const { ingridients } = useSelector(state => state.ingridients);
 
-  if (!location.state) {
-    currentIngridientDetails = ingridients.find(i => i._id === location.pathname.replace('/ingredients/', ''))
-  }
+
+  const currentIngridientDetails = useMemo(
+    () => ingridients.find(i => i._id === location.pathname.replace('/ingredients/', '')),
+    [ingridients, location]);
+
+  useEffect(() => {
+    if (location.state && !currentIngridientDetailsStore?._id && currentIngridientDetails?._id) {
+      dispatch({
+        type: SHOW_INGRIDIENT_DETAILS,
+        currentIngridient: currentIngridientDetails
+      });
+    }
+  }, [location, currentIngridientDetailsStore, currentIngridientDetails]);
+
+
+
+
   return (
     <>
-      <img src={currentIngridientDetails?.image} />
+      <img src={currentIngridientDetails?.image} alt={currentIngridientDetails?.name} />
       <p className='mt-4 text text_type_main-medium'>{currentIngridientDetails?.name}</p>
       <div className={IngredientDetailsStyles.container}>
         <p className={`text text_type_main-default text_color_inactive mr-5 ${IngredientDetailsStyles.text}`}>

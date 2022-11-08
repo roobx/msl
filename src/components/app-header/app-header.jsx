@@ -28,7 +28,6 @@ function AppHeader() {
       <Link
         to='/'
         className={appHeaderStyles.logo}
-
       >
         <Logo />
       </Link>

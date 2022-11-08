@@ -3,12 +3,15 @@ import burgerConstructorStyles from './burger-constructor.module.css';
 import { ConstructorElement, Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import {
-  getOrderNumber,
-  deleteSelectedIngridient,
   SET_BUN_ID,
   ADD_SELECTED_CONSTRUCTOR_INGRIDIENTS,
-  DRAG_SELECTED_CONSTRUCTOR_INGRIDIENTS
-} from '../../services/actions/actions';
+  DRAG_SELECTED_CONSTRUCTOR_INGRIDIENTS,
+  deleteSelectedIngridient
+} from '../../services/actions/constructor';
+import {
+  getOrderNumber
+
+} from '../../services/actions/order';
 import { useHistory } from 'react-router-dom';
 import { useDrop } from 'react-dnd';
 import ConstructorItem from './constructorItem'
@@ -21,10 +24,10 @@ function BurgerConstructor() {
   const [totalPrice, setTotalPrice] = useState(0);
   const { ingridients, selectedConstructorIngridients, orderNumberRequest, selectedItems, bun, currentUser } = useSelector(state => ({
     ingridients: state.ingridients.ingridients,
-    selectedConstructorIngridients: state.constuctor.selectedConstructorIngridients,
+    selectedConstructorIngridients: state.constructorItem.selectedConstructorIngridients,
     orderNumberRequest: state.order.orderNumberRequest,
-    selectedItems: state.constuctor.selectedItems,
-    bun: state.ingridients.ingridients.find(i => i._id === state.constuctor.bunId),
+    selectedItems: state.constructorItem.selectedItems,
+    bun: state.ingridients.ingridients.find(i => i._id === state.constructorItem.bunId),
     currentUser: state.currentUser.currentUser
   }), shallowEqual);
 
@@ -73,10 +76,6 @@ function BurgerConstructor() {
   }, [selectedItems]);
 
   const handleDrag = useCallback((dragIndex, hoverIndex) => {
-    // const dragCard = selectedConstructorIngridients[dragIndex];
-    // const newCards = [...selectedConstructorIngridients];
-    // newCards.splice(dragIndex, 1);
-    // newCards.splice(hoverIndex, 0, dragCard);
 
     const dragCard = selectedItems[dragIndex];
     const newCards = [...selectedItems];

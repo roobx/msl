@@ -5,13 +5,14 @@ import { Input, PasswordInput, Button } from '@ya.praktikum/react-developer-burg
 import {
   signIn,
   getUser
-} from '../../services/actions/actions';
+} from '../services/actions/current-user';
 import { useSelector, useDispatch } from 'react-redux';
+import { useLocation } from "react-router";
 import './pages.css';
 
 function Login() {
   const dispatch = useDispatch();
-
+  const location = useLocation();
   const [emailValue, setEmailValue] = useState('');
   const inputEmailRef = useRef(null);
   const [passwordValue, setPasswordValue] = useState('');
@@ -29,9 +30,7 @@ function Login() {
 
   if (currentUser.email) {
     return <Redirect
-      to={{
-        pathname: '/'
-      }}
+      to={location?.state?.from || '/'}
     />
   }
 

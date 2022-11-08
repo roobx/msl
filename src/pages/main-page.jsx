@@ -1,20 +1,21 @@
-import { useEffect, useCallback } from 'react';
+import { useCallback } from 'react';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
-
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import pagesStyles from './pages.module.css';
-import BurgerIngridients from '../burger-ingridients/burger-ingridients';
-import BurgerConstructor from '../burger-constructor/burger-constructor';
-import Modal from '../modal/modal.jsx';
-import OrderDetails from '../order-details/order-details';
+import BurgerIngridients from '../components/burger-ingridients/burger-ingridients';
+import BurgerConstructor from '../components/burger-constructor/burger-constructor';
+import Modal from '../components/modal/modal.jsx';
+import OrderDetails from '../components/order-details/order-details';
+import {
+  CLOSE_ORDER_DETAILS,
+} from '../services/actions/order';
 
 
 import {
-  getIngridients,
-  CLOSE_ORDER_DETAILS,
+
   CLEAR_SELECTED_CONSTRUCTOR_INGRIDIENTS
-} from '../../services/actions/actions';
+} from '../services/actions/constructor';
 
 function MainPage() {
   const dispatch = useDispatch();
@@ -31,9 +32,7 @@ function MainPage() {
   }, [dispatch], shallowEqual);
 
 
-  useEffect(() => {
-    dispatch(getIngridients())
-  }, []);
+
 
 
   return (
@@ -49,7 +48,6 @@ function MainPage() {
       <Modal title='' opened={orderDetailsOpened} onClose={closePopupOrder}>
         <OrderDetails />
       </Modal>
-
     </>
 
   );

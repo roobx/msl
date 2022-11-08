@@ -16,3 +16,11 @@
   min-height: 80vh;
 }
 
+.ingridient {
+  width: 638px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

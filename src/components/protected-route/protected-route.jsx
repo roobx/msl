@@ -3,7 +3,7 @@ import { Redirect, Route } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   getUser,
-} from '../../services/actions/actions';
+} from '../../services/actions/current-user';
 import PropTypes from 'prop-types';
 
 
@@ -19,13 +19,16 @@ function ProtectedRoute({ children, ...rest }) {
   return (
     <Route
       {...rest}
-      render={() =>
+
+      render={({ location }) =>
         currentUser.email ? (
           children
         ) : (
-
           <Redirect
-            to='/login'
+            to={{
+              pathname: '/login',
+              state: { from: location }
+            }}
           />
         )
       }

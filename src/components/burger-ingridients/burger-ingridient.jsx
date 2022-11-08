@@ -26,7 +26,7 @@ function BurgerIngridient({ ingridient, onClick, count }) {
         state: { background: location, id: _id },
       }}
     >
-      <img src={ingridient.image} />
+      <img src={ingridient.image} alt={ingridient.name} />
       {count > 0 && <Counter count={count} size="default" />}
       <div className={burgerIngridientsStyles.item_price}>
         <p className='mt-1 mb-1 mr-2'>{ingridient.price}</p>

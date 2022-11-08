@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   register,
   getUser
-} from '../../services/actions/actions';
+} from '../services/actions/current-user';
 import pagesStyles from './pages.module.css';
 import { Input, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import './pages.css';

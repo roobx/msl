@@ -6,7 +6,7 @@ import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-component
 import {
   sentResetEmail,
   getUser
-} from '../../services/actions/actions';
+} from '../services/actions/current-user';
 import './pages.css';
 
 function ForgotPassword() {
