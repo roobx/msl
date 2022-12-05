@@ -5,13 +5,13 @@ import { useLocation } from "react-router";
 import {
   SHOW_INGRIDIENT_DETAILS,
 } from '../../services/actions/current-ingridient';
-import { IIngredient } from '../../utils/types';
+import { IIngredient, ILocation } from '../../utils/types';
 
 
 const IngredientDetails: FC = () => {
   const dispatch = useDispatch();
   const currentIngridientDetailsStore = useSelector((state: any) => state.currentIngridientDetails.currentIngridientDetails);
-  const location = useLocation();
+  const location = useLocation<ILocation>();
   const { ingridients } = useSelector((state: any) => state.ingridients);
 
 

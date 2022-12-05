@@ -9,7 +9,7 @@ import { IModalProps } from '../../utils/types';
 const Modal: FC<IModalProps> = ({ title, children, onClose, opened }) => {
 
   React.useEffect(() => {
-    function closeByEscape(evt: any) {
+    function closeByEscape(evt: KeyboardEvent) {
       if (evt.key === 'Escape') {
         onClose();
       }

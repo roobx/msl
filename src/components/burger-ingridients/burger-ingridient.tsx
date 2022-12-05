@@ -5,7 +5,7 @@ import burgerIngridientsStyles from './burger-ingridients.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrag } from "react-dnd";
 import { IIngridientItem } from '../../utils/types';
-
+import { ILocation } from '../../utils/types';
 
 const BurgerIngridient: FC<IIngridientItem> = ({ ingridient, onClick, count }) => {
   const { _id, type } = ingridient;
@@ -13,7 +13,7 @@ const BurgerIngridient: FC<IIngridientItem> = ({ ingridient, onClick, count }) =
     type: 'ingridient',
     item: { _id, type }
   });
-  const location = useLocation();
+  const location = useLocation<ILocation>();
 
 
   return (

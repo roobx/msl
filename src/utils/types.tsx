@@ -41,8 +41,8 @@ export interface IModalProps extends IModalOverlayProps {
   title?: string;
 }
 
-export interface IProtectedRoute {
-  children: JSX.Element;
-  exact?: undefined | true;
-  path?: string;
+export interface ILocation {
+  from?: Location;
+  background?: Location;
+  pathname?: string;
 }

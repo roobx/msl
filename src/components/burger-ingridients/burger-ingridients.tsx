@@ -38,7 +38,7 @@ const BurgerIngriiednts: FC = () => {
     },
   ]
 
-  const onIngredientClick = useCallback((item: IIngredient) => (event: any) => {
+  const onIngredientClick = useCallback((item: IIngredient) => (event: React.SyntheticEvent) => {
     dispatch({
       type: SHOW_INGRIDIENT_DETAILS,
       currentIngridient: item

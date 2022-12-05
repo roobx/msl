@@ -33,19 +33,19 @@ const Pofile: FC = () => {
 
   }, [currentUser]);
 
-  const onUndoCallback = useCallback((e: any) => {
+  const onUndoCallback = useCallback((e: React.SyntheticEvent) => {
     e.preventDefault();
     setNameProfileValue(currentUser.name);
     setEmailProfileValue(currentUser.email);
     setPasswordProfileValue('');
   }, [currentUser]);
 
-  const onSaveCallback = useCallback((e: any) => {
+  const onSaveCallback = useCallback((e: React.SyntheticEvent) => {
     e.preventDefault();
     dispatch(updateUser(emailProfileValue, nameProfileValue, passwordProfileValue));
   }, [emailProfileValue, nameProfileValue, passwordProfileValue]);
 
-  const onExitCallback = useCallback((e: any) => {
+  const onExitCallback = useCallback((e: React.SyntheticEvent) => {
     e.preventDefault();
     dispatch(exit());
   }, []);

@@ -21,7 +21,7 @@ const Register: FC = () => {
 
   const { currentUser } = useSelector((state: any) => state.currentUser);
 
-  const onSubmitRegister = useCallback((e: any) => {
+  const onSubmitRegister = useCallback((e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(register(nameRegisterValue, emailRegisterValue, passwordRegisterValue));
   }, [dispatch, nameRegisterValue, emailRegisterValue, passwordRegisterValue]);

@@ -9,11 +9,11 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from "react-router";
 import './pages.css';
-
+import { ILocation } from '../utils/types';
 
 const Login: FC = () => {
   const dispatch = useDispatch<any>();
-  const location = useLocation<any>();
+  const location = useLocation<ILocation>();
   const from = location.state?.from || "/";
   const [emailValue, setEmailValue] = useState<string>('');
   const inputEmailRef = useRef<HTMLInputElement>(null);
@@ -22,7 +22,7 @@ const Login: FC = () => {
 
   const { currentUser } = useSelector((state: any) => state.currentUser);
 
-  const onSubmitLogin = useCallback((e: any) => {
+  const onSubmitLogin = useCallback((e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(signIn(emailValue, passwordValue));
   }, [dispatch, emailValue, passwordValue]);

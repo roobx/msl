@@ -22,7 +22,7 @@ const ResetPassword: FC = () => {
 
   const { currentUser } = useSelector((state: any) => state.currentUser)
 
-  const onSubmitReset = useCallback((e: any) => {
+  const onSubmitReset = useCallback((e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(sentResetPassword(passwordResetValue, codeResetValue));
   }, [dispatch, passwordResetValue, codeResetValue]);

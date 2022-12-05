@@ -18,9 +18,9 @@ import ConstructorItem from './constructorItem'
 import { v4 as uuidv4 } from 'uuid';
 import { IIngredient, IIngredientItem } from '../../utils/types';
 
-type closeCallback = (id: string) => void;
-type dragCallback = (dragIndex: number, hoverIndex: number) => void;
-type onButtonClickCallback = () => void;
+type CloseCallback = (id: string) => void;
+type DragCallback = (dragIndex: number, hoverIndex: number) => void;
+type OnButtonClickCallback = () => void;
 
 const BurgerConstructor: FC = () => {
   const history = useHistory();
@@ -71,16 +71,16 @@ const BurgerConstructor: FC = () => {
   }, [selectedItems, bun]);
 
 
-  const onButtonClick = useCallback<onButtonClickCallback>(() => {
+  const onButtonClick = useCallback<OnButtonClickCallback>(() => {
     if (currentUser.email) dispatch(getOrderNumber([...selectedConstructorIngridients, bun._id]))
     else history.push('/login')
   }, [selectedConstructorIngridients, bun, currentUser]);
 
-  const handleClose = useCallback<closeCallback>((id) => {
+  const handleClose = useCallback<CloseCallback>((id) => {
     dispatch(deleteSelectedIngridient(id, selectedItems));
   }, [selectedItems]);
 
-  const handleDrag = useCallback<dragCallback>((dragIndex, hoverIndex) => {
+  const handleDrag = useCallback<DragCallback>((dragIndex, hoverIndex) => {
 
     const dragCard = selectedItems[dragIndex];
     const newCards = [...selectedItems];

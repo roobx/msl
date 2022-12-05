@@ -17,7 +17,7 @@ const ForgotPassword: FC = () => {
   const inputEmailForgotRef = useRef<HTMLInputElement>(null);
   const { currentUser } = useSelector((state: any) => state.currentUser)
 
-  const onSubmitForgot = useCallback((e: any) => {
+  const onSubmitForgot = useCallback((e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(sentResetEmail(emailForgotValue));
 

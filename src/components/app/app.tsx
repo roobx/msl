@@ -2,23 +2,24 @@ import { useCallback, useEffect, FC } from 'react';
 import { BrowserRouter as Router, Switch, Route, useHistory } from 'react-router-dom';
 import { useLocation } from "react-router";
 import appStyles from './app.module.css';
-import AppHeader from './components/app-header/app-header';
-import MainPage from './pages/main-page';
-import Login from './pages/login';
-import Register from './pages/register';
-import ForgotPassword from './pages/forgot-password';
-import ResetPassword from './pages/reset-password';
-import Profile from './pages/profile';
-import ProtectedRoute from './components/protected-route/protected-route';
-import IngredientDetails from './components/ingredient-details/ingredient-details';
+import AppHeader from '../app-header/app-header';
+import MainPage from '../../pages/main-page';
+import Login from '../../pages/login';
+import Register from '../../pages/register';
+import ForgotPassword from '../../pages/forgot-password';
+import ResetPassword from '../../pages/reset-password';
+import Profile from '../../pages/profile';
+import ProtectedRoute from '../protected-route/protected-route';
+import IngredientDetails from '../ingredient-details/ingredient-details';
 import {
   HIDE_INGRIDIENT_DETAILS,
-} from './services/actions/current-ingridient';
+} from '../../services/actions/current-ingridient';
 import { useSelector, useDispatch } from 'react-redux';
-import Modal from './components/modal/modal';
+import Modal from '../modal/modal';
 import {
   getIngridients
-} from './services/actions/ingridients';
+} from '../../services/actions/ingridients';
+
 
 const App: FC = () => {
   const ModalSwitch = () => {

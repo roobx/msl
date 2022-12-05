@@ -37,6 +37,4 @@ export function setTokens(accessToken: string, refreshToken: string) {
   localStorage.setItem('refreshToken', refreshToken);
 }
 
-
-
-export const checkResponse = (res: any) => res.ok ? res.json() : Promise.reject(res.status);
+export const checkResponse = (res: Response) => res.ok ? res.json() : Promise.reject(res.status);
