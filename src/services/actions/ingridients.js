@@ -1,4 +1,4 @@
-import { url } from '../../utils/consts.js';
+import { url } from '../../utils/consts.ts';
 import { checkResponse } from '../../utils/utils';
 export const GET_INGRIDIENTS = 'GET_INGRIDIENTS';
 export const GET_INGRIDIENTS_SUCCES = 'GET_INGRIDIENTS_SUCCES';

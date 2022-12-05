@@ -1,4 +1,4 @@
-import { url } from '../../utils/consts.js';
+import { url } from '../../utils/consts.ts';
 import { checkResponse, setTokens, getCookie, deleteCookie } from '../../utils/utils';
 
 export const SENT_RESET_EMAIL = 'SENT_RESET_EMAIL';

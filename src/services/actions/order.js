@@ -1,4 +1,4 @@
-import { url } from '../../utils/consts.js';
+import { url } from '../../utils/consts.ts';
 import { checkResponse } from '../../utils/utils';
 export const GET_ORDER_NUMBER = 'GET_ORDER_NUMBER';
 export const GET_ORDER_NUMBER_SUCCES = 'GET_ORDER_NUMBER_SUCCES';
