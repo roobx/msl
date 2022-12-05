@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, FC } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -10,16 +10,16 @@ import pagesStyles from './pages.module.css';
 import { Input, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import './pages.css';
 
-function Pofile() {
-  const dispatch = useDispatch();
+const Pofile: FC = () => {
+  const dispatch = useDispatch<any>();
 
-  const currentUser = useSelector(state => state.currentUser.currentUser);
+  const currentUser = useSelector((state: any) => state.currentUser.currentUser);
 
-  const [emailProfileValue, setEmailProfileValue] = useState('');
+  const [emailProfileValue, setEmailProfileValue] = useState<string>('');
 
-  const [nameProfileValue, setNameProfileValue] = useState('');
+  const [nameProfileValue, setNameProfileValue] = useState<string>('');
 
-  const [passwordProfileValue, setPasswordProfileValue] = useState('');
+  const [passwordProfileValue, setPasswordProfileValue] = useState<string>('');
 
   useEffect(() => {
 
@@ -33,19 +33,19 @@ function Pofile() {
 
   }, [currentUser]);
 
-  const onUndoCallback = useCallback((e) => {
+  const onUndoCallback = useCallback((e: any) => {
     e.preventDefault();
     setNameProfileValue(currentUser.name);
     setEmailProfileValue(currentUser.email);
     setPasswordProfileValue('');
   }, [currentUser]);
 
-  const onSaveCallback = useCallback((e) => {
+  const onSaveCallback = useCallback((e: any) => {
     e.preventDefault();
     dispatch(updateUser(emailProfileValue, nameProfileValue, passwordProfileValue));
   }, [emailProfileValue, nameProfileValue, passwordProfileValue]);
 
-  const onExitCallback = useCallback((e) => {
+  const onExitCallback = useCallback((e: any) => {
     e.preventDefault();
     dispatch(exit());
   }, []);
@@ -115,6 +115,7 @@ function Pofile() {
                   onClick={onUndoCallback}
                   type="primary"
                   size="medium"
+                  htmlType='button'
                 >
                   Отменить
                 </Button>
@@ -124,6 +125,7 @@ function Pofile() {
                 onClick={onSaveCallback}
                 type="primary"
                 size="medium"
+                htmlType='button'
               >
                 Сохранить
               </Button>
@@ -135,8 +137,6 @@ function Pofile() {
         В этом разделе вы можете изменить свои персональные данные
       </p>
     </div>
-
-
   );
 }
 

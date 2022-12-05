@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect, useCallback, FC } from 'react';
 
 import burgerIngridientsStyles from './burger-ingridients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -7,15 +7,15 @@ import BurgerIngridient from './burger-ingridient'
 import {
   SHOW_INGRIDIENT_DETAILS
 } from '../../services/actions/current-ingridient';
+import { IIngredient } from '../../utils/types';
 
-
-function BurgerIngriiednts() {
+const BurgerIngriiednts: FC = () => {
   const dispatch = useDispatch();
-  const [current, setCurrent] = useState('one');
-  const tabRef = useRef(null);
-  const itemRefOne = useRef(null);
-  const itemRefTwo = useRef(null);
-  const itemRefThree = useRef(null);
+  const [current, setCurrent] = useState<string>('one');
+  const tabRef = useRef<HTMLDivElement>(null);
+  const itemRefOne = useRef<HTMLDivElement>(null);
+  const itemRefTwo = useRef<HTMLDivElement>(null);
+  const itemRefThree = useRef<HTMLDivElement>(null);
 
   const tabSettings = [
     {
@@ -38,7 +38,7 @@ function BurgerIngriiednts() {
     },
   ]
 
-  const onIngredientClick = useCallback((item) => (event) => {
+  const onIngredientClick = useCallback((item: IIngredient) => (event: any) => {
     dispatch({
       type: SHOW_INGRIDIENT_DETAILS,
       currentIngridient: item
@@ -46,7 +46,7 @@ function BurgerIngriiednts() {
 
   }, [dispatch]);
 
-  const handleObserver = useCallback((id) => {
+  const handleObserver = useCallback((id: string) => {
     setCurrent(id);
   }, []);
 
@@ -63,13 +63,13 @@ function BurgerIngriiednts() {
 
   }, []);
 
-  const { ingridients } = useSelector(state => state.ingridients);
-  const { selectedConstructorIngridients } = useSelector(state => ({
+  const { ingridients } = useSelector((state: any) => state.ingridients);
+  const { selectedConstructorIngridients } = useSelector((state: any) => ({
     selectedConstructorIngridients: [...state.constructorItem.selectedConstructorIngridients, state.constructorItem.bunId],
 
   }), shallowEqual);
 
-  const getCount = useCallback((id) => selectedConstructorIngridients.filter(i => i === id).length, [selectedConstructorIngridients]);
+  const getCount = useCallback((id: string) => selectedConstructorIngridients.filter(i => i === id).length, [selectedConstructorIngridients]);
 
   return (
     <>
@@ -80,7 +80,8 @@ function BurgerIngriiednts() {
         {tabSettings.map((tab) =>
         (<Tab key={`tabs-id-${tab.id}`} value={tab.id} active={current === tab.id} onClick={setCurrent} >
           {tab.name}
-        </Tab>)
+        </Tab>
+        )
         )
         }
       </div>
@@ -91,8 +92,8 @@ function BurgerIngriiednts() {
             <p ref={tab.ref} className='text text_type_main-medium mb-6'>{tab.name}</p>
             <div className={`pl-4 pr-4 ${burgerIngridientsStyles.grid_container}`}>
               {
-                ingridients.filter(item => item.type === tab.code)
-                  .map(i =>
+                ingridients.filter((item: IIngredient) => item.type === tab.code)
+                  .map((i: IIngredient) =>
                     <BurgerIngridient key={i._id} onClick={onIngredientClick(i)} count={getCount(i._id)} ingridient={i} />
                   )
               }

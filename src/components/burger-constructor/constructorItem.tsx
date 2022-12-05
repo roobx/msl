@@ -1,13 +1,14 @@
-import { useRef } from 'react'
+import { useRef, FC } from 'react'
 import burgerConstructorStyles from './burger-constructor.module.css';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrag, useDrop } from 'react-dnd';
-import PropTypes, { shape } from 'prop-types';
-import { ingredientType } from '../../utils/types';
+import { IConstructorItem } from '../../utils/types';
 
-function ConstructorItem({ item, handleClose, index, handleDrag }) {
 
-  const ref = useRef(null);
+const ConstructorItem: FC<IConstructorItem> = ({ item, handleClose, index, handleDrag }) => {
+
+  const ref = useRef<HTMLDivElement>(null);
+
   const [{ handlerId }, drop] = useDrop({
 
     accept: 'component',
@@ -17,7 +18,7 @@ function ConstructorItem({ item, handleClose, index, handleDrag }) {
       }
     },
 
-    hover(item, monitor) {
+    hover(item: any, monitor) {
       if (!ref.current) {
         return;
       }
@@ -33,7 +34,7 @@ function ConstructorItem({ item, handleClose, index, handleDrag }) {
 
       const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
 
-      const clientOffset = monitor.getClientOffset();
+      const clientOffset = monitor.getClientOffset()!;
 
       const hoverClientY = clientOffset.y - hoverBoundingRect.top;
 
@@ -53,7 +54,7 @@ function ConstructorItem({ item, handleClose, index, handleDrag }) {
 
   const [{ isDragging }, drag] = useDrag({
     type: 'component',
-    item: () => ({ id: item.id, index }),
+    item: () => ({ id: item._id, index }),
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
@@ -89,10 +90,4 @@ function ConstructorItem({ item, handleClose, index, handleDrag }) {
   );
 }
 
-ConstructorItem.propTypes = {
-  item: shape(ingredientType).isRequired,
-  handleClose: PropTypes.func.isRequired,
-  handleDrag: PropTypes.func.isRequired,
-  index: PropTypes.number,
-}
 export default ConstructorItem;

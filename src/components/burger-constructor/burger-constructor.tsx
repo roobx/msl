@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback, useEffect, FC } from 'react'
 import burgerConstructorStyles from './burger-constructor.module.css';
 import { ConstructorElement, Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
@@ -16,24 +16,29 @@ import { useHistory } from 'react-router-dom';
 import { useDrop } from 'react-dnd';
 import ConstructorItem from './constructorItem'
 import { v4 as uuidv4 } from 'uuid';
+import { IIngredient, IIngredientItem } from '../../utils/types';
 
-function BurgerConstructor() {
+type closeCallback = (id: string) => void;
+type dragCallback = (dragIndex: number, hoverIndex: number) => void;
+type onButtonClickCallback = () => void;
+
+const BurgerConstructor: FC = () => {
   const history = useHistory();
-  const dispatch = useDispatch();
-  const [selectedBun, setSelectedBun] = useState(null);
-  const [totalPrice, setTotalPrice] = useState(0);
-  const { ingridients, selectedConstructorIngridients, orderNumberRequest, selectedItems, bun, currentUser } = useSelector(state => ({
+  const dispatch = useDispatch<any>();
+  const [selectedBun, setSelectedBun] = useState<IIngredient | null>(null);
+  const [totalPrice, setTotalPrice] = useState<number>(0);
+  const { ingridients, selectedConstructorIngridients, orderNumberRequest, selectedItems, bun, currentUser } = useSelector((state: any) => ({
     ingridients: state.ingridients.ingridients,
     selectedConstructorIngridients: state.constructorItem.selectedConstructorIngridients,
     orderNumberRequest: state.order.orderNumberRequest,
     selectedItems: state.constructorItem.selectedItems,
-    bun: state.ingridients.ingridients.find(i => i._id === state.constructorItem.bunId),
+    bun: state.ingridients.ingridients.find((i: IIngredient) => i._id === state.constructorItem.bunId),
     currentUser: state.currentUser.currentUser
   }), shallowEqual);
 
   const [, dropTarget] = useDrop({
     accept: "ingridient",
-    drop({ _id, type }) {
+    drop({ _id, type }: IIngredient) {
       if (type === 'bun') {
         dispatch({
           type: SET_BUN_ID,
@@ -43,9 +48,9 @@ function BurgerConstructor() {
       else {
         dispatch({
           type: ADD_SELECTED_CONSTRUCTOR_INGRIDIENTS,
-          id: _id,
+          _id: _id,
           item: {
-            ...ingridients.find(i => i._id === _id),
+            ...ingridients.find((i: IIngredient) => i._id === _id),
             dragId: uuidv4()
           }
         });
@@ -60,22 +65,22 @@ function BurgerConstructor() {
     setSelectedBun(bun);
     const bunPrice = isNaN(bun?.price) ? 0 : 2 * bun?.price;
     setTotalPrice(selectedItems.reduce(
-      (acc, iter) => {
+      (acc: number, iter: IIngredient) => {
         return acc + iter?.price;
       }, 0) + bunPrice);
   }, [selectedItems, bun]);
 
 
-  const onButtonClick = useCallback(() => {
+  const onButtonClick = useCallback<onButtonClickCallback>(() => {
     if (currentUser.email) dispatch(getOrderNumber([...selectedConstructorIngridients, bun._id]))
     else history.push('/login')
   }, [selectedConstructorIngridients, bun, currentUser]);
 
-  const handleClose = useCallback((id) => {
+  const handleClose = useCallback<closeCallback>((id) => {
     dispatch(deleteSelectedIngridient(id, selectedItems));
   }, [selectedItems]);
 
-  const handleDrag = useCallback((dragIndex, hoverIndex) => {
+  const handleDrag = useCallback<dragCallback>((dragIndex, hoverIndex) => {
 
     const dragCard = selectedItems[dragIndex];
     const newCards = [...selectedItems];
@@ -89,7 +94,7 @@ function BurgerConstructor() {
       newSelectedItems: newCards
     })
 
-  }, [selectedItems, selectedConstructorIngridients, dispatch], shallowEqual);
+  }, [selectedItems, selectedConstructorIngridients, dispatch]);
 
 
   return (
@@ -107,7 +112,7 @@ function BurgerConstructor() {
       <div ref={dropTarget} className={burgerConstructorStyles.items}>
         {
           selectedItems
-            .map((item, index) => {
+            .map((item: IIngredientItem, index: number) => {
 
               return (
                 <ConstructorItem key={item?.dragId} item={item} handleClose={handleClose} index={index} handleDrag={handleDrag} />
@@ -131,8 +136,8 @@ function BurgerConstructor() {
           <p className='mt-1 mb-1 mr-2 text text_type_main-large'>{totalPrice}</p>
           <CurrencyIcon type="primary" />
         </div>
-        <Button onClick={onButtonClick} type="primary" size="large">
-          {orderNumberRequest ? 'Загружаем...' : 'Оформить заказ'}
+        <Button onClick={onButtonClick} htmlType="button" type="primary" size="large">
+          Оформить заказ
         </Button>
       </div>
     </>

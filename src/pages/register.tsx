@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useEffect } from 'react';
+import { useState, useRef, useCallback, useEffect, FC } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -9,20 +9,19 @@ import pagesStyles from './pages.module.css';
 import { Input, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import './pages.css';
 
-function Register() {
-  const dispatch = useDispatch();
+const Register: FC = () => {
+  const dispatch = useDispatch<any>();
+  const [emailRegisterValue, setEmailRegisterValue] = useState<string>('');
+  const inputEmailRegisterRef = useRef<HTMLInputElement>(null);
+  const [nameRegisterValue, setNameRegisterValue] = useState<string>('');
+  const inputNameRegisterRef = useRef<HTMLInputElement>(null);
+  const [passwordRegisterValue, setPasswordRegisterValue] = useState<string>('');
+  const inputPasswordRegisterRef = useRef<HTMLInputElement>(null);
 
-  const [emailRegisterValue, setEmailRegisterValue] = useState('');
-  const inputEmailRegisterRef = useRef(null);
-  const [nameRegisterValue, setNameRegisterValue] = useState('');
-  const inputNameRegisterRef = useRef(null);
-  const [passwordRegisterValue, setPasswordRegisterValue] = useState('');
-  const inputPasswordRegisterRef = useRef(null);
 
+  const { currentUser } = useSelector((state: any) => state.currentUser);
 
-  const { currentUser } = useSelector(state => state.currentUser);
-
-  const onSubmitRegister = useCallback((e) => {
+  const onSubmitRegister = useCallback((e: any) => {
     e.preventDefault();
     dispatch(register(nameRegisterValue, emailRegisterValue, passwordRegisterValue));
   }, [dispatch, nameRegisterValue, emailRegisterValue, passwordRegisterValue]);
@@ -71,6 +70,7 @@ function Register() {
         <Button
           type="primary"
           size="medium"
+          htmlType='button'
         >
           Зарегистрироваться
         </Button>

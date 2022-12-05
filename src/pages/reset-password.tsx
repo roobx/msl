@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useEffect } from 'react';
+import { useState, useRef, useCallback, useEffect, FC } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import pagesStyles from './pages.module.css';
@@ -9,18 +9,20 @@ import {
 } from '../services/actions/current-user';
 import './pages.css';
 
-function ResetPassword() {
-  const dispatch = useDispatch();
 
-  const [passwordResetValue, setPasswordResetValue] = useState('');
-  const inputEmailResetRef = useRef(null);
 
-  const [codeResetValue, setCodeResetValue] = useState('');
-  const inputCodeResetRef = useRef(null);
+const ResetPassword: FC = () => {
+  const dispatch = useDispatch<any>();
 
-  const { currentUser } = useSelector(state => state.currentUser)
+  const [passwordResetValue, setPasswordResetValue] = useState<string>('');
+  const inputEmailResetRef = useRef<HTMLInputElement>(null);
 
-  const onSubmitReset = useCallback((e) => {
+  const [codeResetValue, setCodeResetValue] = useState<string>('');
+  const inputCodeResetRef = useRef<HTMLInputElement>(null);
+
+  const { currentUser } = useSelector((state: any) => state.currentUser)
+
+  const onSubmitReset = useCallback((e: any) => {
     e.preventDefault();
     dispatch(sentResetPassword(passwordResetValue, codeResetValue));
   }, [dispatch, passwordResetValue, codeResetValue]);
@@ -75,6 +77,7 @@ function ResetPassword() {
         <Button
           type="primary"
           size="medium"
+          htmlType='button'
         >
           {!currentUser.resetPasswordRequest ? 'Сохранить' : '...Сохраняем'}
 

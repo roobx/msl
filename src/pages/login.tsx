@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useEffect } from 'react';
+import { useState, useRef, useCallback, useEffect, FC } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import pagesStyles from './pages.module.css';
 import { Input, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -10,17 +10,19 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from "react-router";
 import './pages.css';
 
-function Login() {
-  const dispatch = useDispatch();
-  const location = useLocation();
-  const [emailValue, setEmailValue] = useState('');
-  const inputEmailRef = useRef(null);
-  const [passwordValue, setPasswordValue] = useState('');
-  const inputPasswordRef = useRef(null);
 
-  const { currentUser } = useSelector(state => state.currentUser);
+const Login: FC = () => {
+  const dispatch = useDispatch<any>();
+  const location = useLocation<any>();
+  const from = location.state?.from || "/";
+  const [emailValue, setEmailValue] = useState<string>('');
+  const inputEmailRef = useRef<HTMLInputElement>(null);
+  const [passwordValue, setPasswordValue] = useState<string>('');
+  const inputPasswordRef = useRef<HTMLInputElement>(null);
 
-  const onSubmitLogin = useCallback((e) => {
+  const { currentUser } = useSelector((state: any) => state.currentUser);
+
+  const onSubmitLogin = useCallback((e: any) => {
     e.preventDefault();
     dispatch(signIn(emailValue, passwordValue));
   }, [dispatch, emailValue, passwordValue]);
@@ -30,7 +32,7 @@ function Login() {
 
   if (currentUser.email) {
     return <Redirect
-      to={location?.state?.from || '/'}
+      to={from}
     />
   }
 
@@ -56,6 +58,7 @@ function Login() {
         <Button
           type="primary"
           size="medium"
+          htmlType='button'
         >
           {!currentUser.signInRequest ? 'Вход' : '...Взлетаем!'}
         </Button>

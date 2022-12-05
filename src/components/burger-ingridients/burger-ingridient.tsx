@@ -1,13 +1,13 @@
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { useLocation } from "react-router";
-
 import burgerIngridientsStyles from './burger-ingridients.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
-import PropTypes, { shape } from 'prop-types';
 import { useDrag } from "react-dnd";
-import { ingredientType } from '../../utils/types';
+import { IIngridientItem } from '../../utils/types';
 
-function BurgerIngridient({ ingridient, onClick, count }) {
+
+const BurgerIngridient: FC<IIngridientItem> = ({ ingridient, onClick, count }) => {
   const { _id, type } = ingridient;
   const [, ref] = useDrag({
     type: 'ingridient',
@@ -39,10 +39,5 @@ function BurgerIngridient({ ingridient, onClick, count }) {
   );
 }
 
-BurgerIngridient.propTypes = {
-  ingridient: shape(ingredientType).isRequired,
-  onClick: PropTypes.func.isRequired,
-  count: PropTypes.number,
-}
 
 export default BurgerIngridient;

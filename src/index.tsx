@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './components/app/app';
+import App from './App';
 import { Provider } from 'react-redux';
 import { rootReducer } from './services/reducers/index';
 

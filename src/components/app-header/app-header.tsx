@@ -1,8 +1,9 @@
+import type { FC } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import appHeaderStyles from './app-header.module.css';
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 
-function AppHeader() {
+const AppHeader: FC = () => {
   return (
     <header className={`pt-4 pb-4 ${appHeaderStyles.header}`}>
       <div className={appHeaderStyles.menuitems}>

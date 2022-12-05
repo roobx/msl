@@ -1,13 +1,8 @@
 import React from 'react';
 import ModalOverlayStyles from './modal-overlay.module.css';
+import { IModalOverlayProps } from '../../utils/types';
 
-interface Props {
-  children: JSX.Element;
-  opened: Boolean;
-  onClose: () => void;
-}
-
-function ModalOverlay({ opened, children, onClose }: Props) {
+function ModalOverlay({ opened, children, onClose }: IModalOverlayProps) {
 
   function handleOverlayClick(evt: React.MouseEvent<HTMLDivElement>) {
     if (evt.target === evt.currentTarget) onClose();

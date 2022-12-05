@@ -1,25 +1,22 @@
-import { useCallback } from 'react';
-import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+import { useCallback, FC } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import pagesStyles from './pages.module.css';
 import BurgerIngridients from '../components/burger-ingridients/burger-ingridients';
 import BurgerConstructor from '../components/burger-constructor/burger-constructor';
-import Modal from '../components/modal/modal.jsx';
+import Modal from '../components/modal/modal';
 import OrderDetails from '../components/order-details/order-details';
 import {
   CLOSE_ORDER_DETAILS,
 } from '../services/actions/order';
-
-
 import {
-
   CLEAR_SELECTED_CONSTRUCTOR_INGRIDIENTS
 } from '../services/actions/constructor';
 
-function MainPage() {
-  const dispatch = useDispatch();
-  const { orderDetailsOpened } = useSelector(state => state.order);
+const MainPage: FC = () => {
+  const dispatch = useDispatch<any>();
+  const { orderDetailsOpened } = useSelector((state: any) => state.order);
 
   const closePopupOrder = useCallback(() => {
     dispatch({
@@ -29,10 +26,7 @@ function MainPage() {
       type: CLEAR_SELECTED_CONSTRUCTOR_INGRIDIENTS
     });
 
-  }, [dispatch], shallowEqual);
-
-
-
+  }, [dispatch]);
 
 
   return (

@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { FC } from 'react';
 import ReactDOM from 'react-dom';
 import ModalStyles from './modal.module.css';
 import ModalOverlay from '../modal-overlay/modal-overlay';
-import PropTypes from 'prop-types';
+import { IModalProps } from '../../utils/types';
 
 
-function Modal({ title, children, onClose, opened }) {
+
+const Modal: FC<IModalProps> = ({ title, children, onClose, opened }) => {
 
   React.useEffect(() => {
-    function closeByEscape(evt) {
+    function closeByEscape(evt: any) {
       if (evt.key === 'Escape') {
         onClose();
       }
@@ -33,15 +34,9 @@ function Modal({ title, children, onClose, opened }) {
       </div>
     </ModalOverlay>
     ,
-    document.getElementById("react-modals")
+    document.getElementById("react-modals")!
   );
 }
 
-Modal.propTypes = {
-  title: PropTypes.string,
-  children: PropTypes.element,
-  onClose: PropTypes.func.isRequired,
-  opened: PropTypes.bool.isRequired
-};
 
 export default Modal;
