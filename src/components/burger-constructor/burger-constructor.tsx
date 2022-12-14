@@ -2,15 +2,18 @@ import { useState, useCallback, useEffect, FC } from 'react'
 import burgerConstructorStyles from './burger-constructor.module.css';
 import { ConstructorElement, Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+
 import {
   SET_BUN_ID,
   ADD_SELECTED_CONSTRUCTOR_INGRIDIENTS,
   DRAG_SELECTED_CONSTRUCTOR_INGRIDIENTS,
+
+} from '../../services/constants/constructor';
+import {
   deleteSelectedIngridient
 } from '../../services/actions/constructor';
 import {
   getOrderNumber
-
 } from '../../services/actions/order';
 import { useHistory } from 'react-router-dom';
 import { useDrop } from 'react-dnd';

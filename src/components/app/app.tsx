@@ -13,8 +13,8 @@ import ProtectedRoute from '../protected-route/protected-route';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import {
   HIDE_INGRIDIENT_DETAILS,
-} from '../../services/actions/current-ingridient';
-import { useSelector, useDispatch } from 'react-redux';
+} from '../../services/constants/current-ingridient';
+import { useAppSelector, useAppDispatch } from '../../services/hooks';
 import Modal from '../modal/modal';
 import {
   getIngridients
@@ -26,10 +26,10 @@ const App: FC = () => {
 
     const location = useLocation<any>();
     const history = useHistory();
-    const dispatch = useDispatch<any>();
+    const dispatch = useAppDispatch();
     const background = location.state && location.state.background;
 
-    const { currentIngridientDetails } = useSelector((state: any) => state.currentIngridientDetails);
+    const { currentIngridientDetails } = useAppSelector((state: any) => state.currentIngridientDetails);
     const closePopupIngridientDetails = useCallback(() => {
       dispatch({
         type: HIDE_INGRIDIENT_DETAILS

@@ -4,7 +4,7 @@ import IngredientDetailsStyles from './ingredient-details.module.css';
 import { useLocation } from "react-router";
 import {
   SHOW_INGRIDIENT_DETAILS,
-} from '../../services/actions/current-ingridient';
+} from '../../services/constants/current-ingridient';
 import { IIngredient, ILocation } from '../../utils/types';
 
 

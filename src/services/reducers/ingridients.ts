@@ -2,15 +2,26 @@ import {
   GET_INGRIDIENTS,
   GET_INGRIDIENTS_SUCCES,
   GET_INGRIDIENTS_FAILED
-} from '../actions/ingridients';
+} from '../constants/ingridients';
+import {
+  IIngredient
+} from '../../utils/types';
 
-const initialState = {
-  ingridientsRequest: false,
-  ingridientsFailed: false,
-  ingridients: []
+import { TIngridientsActions } from '../actions/ingridients';
+
+type TIngridientState = {
+  ingridientsRequest: boolean;
+  ingridientsFailed: boolean;
+  ingridients: IIngredient | [];
 }
 
-export const ingridientsReducer = (state = initialState, action) => {
+const initialState: TIngridientState = {
+  ingridientsRequest: false,
+  ingridientsFailed: false,
+  ingridients: [],
+}
+
+export const ingridientsReducer = (state = initialState, action: TIngridientsActions) => {
   switch (action.type) {
     case GET_INGRIDIENTS: {
       return {

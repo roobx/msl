@@ -6,7 +6,7 @@ import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import BurgerIngridient from './burger-ingridient'
 import {
   SHOW_INGRIDIENT_DETAILS
-} from '../../services/actions/current-ingridient';
+} from '../../services/constants/current-ingridient';
 import { IIngredient } from '../../utils/types';
 
 const BurgerIngriiednts: FC = () => {

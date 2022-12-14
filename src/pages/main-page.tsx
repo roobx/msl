@@ -9,10 +9,10 @@ import Modal from '../components/modal/modal';
 import OrderDetails from '../components/order-details/order-details';
 import {
   CLOSE_ORDER_DETAILS,
-} from '../services/actions/order';
+} from '../services/constants/order';
 import {
   CLEAR_SELECTED_CONSTRUCTOR_INGRIDIENTS
-} from '../services/actions/constructor';
+} from '../services/constants/constructor';
 
 const MainPage: FC = () => {
   const dispatch = useDispatch<any>();

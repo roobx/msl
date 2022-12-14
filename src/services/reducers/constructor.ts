@@ -4,17 +4,26 @@ import {
   DELETE_SELECTED_CONSTRUCTOR_INGRIDIENTS,
   DRAG_SELECTED_CONSTRUCTOR_INGRIDIENTS,
   CLEAR_SELECTED_CONSTRUCTOR_INGRIDIENTS,
-} from "../actions/constructor";
+} from "../constants/constructor";
+import {
+  IIngredientItem
+} from '../../utils/types';
 
-const initialState = {
+import { TConstructorActions } from '../actions/constructor';
+
+type TConstructorState = {
+  selectedConstructorIngridients: ReadonlyArray<IIngredientItem>;
+  bunId: string;
+  selectedItems: [];
+}
+
+const initialState: TConstructorState = {
   selectedConstructorIngridients: [],
   bunId: '',
   selectedItems: []
 }
 
-
-
-export const constructorReducer = (state = initialState, action) => {
+export const constructorReducer = (state = initialState, action: TConstructorActions) => {
   switch (action.type) {
     case ADD_SELECTED_CONSTRUCTOR_INGRIDIENTS: {
       return {
