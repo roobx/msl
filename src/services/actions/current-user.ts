@@ -2,8 +2,7 @@ import { url } from '../../utils/consts';
 import { checkResponse, setTokens, getCookie, deleteCookie } from '../../utils/utils';
 import {
   IUser,
-  AppThunk,
-  AppDispatch
+  AppThunk
 } from '../../utils/types';
 
 import {
@@ -150,254 +149,278 @@ export type TCurrentUserActions =
   | IExitFailed;
 
 
-export const sentResetEmail: AppThunk = (email: string) => (dispatch) => {
-  dispatch({
-    type: SENT_RESET_EMAIL
-  });
-  fetch(`${url}password-reset`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8'
-    },
-    body: JSON.stringify({
-      email: email
-    })
-  })
-    .then(checkResponse)
-    .then(res => {
-      dispatch({
-        type: SENT_RESET_EMAIL_SUCCES,
-      });
-    })
-    .catch(err => {
-
-      dispatch({
-        type: SENT_RESET_EMAIL_FAILED
+export const sentResetEmail = (email: string): AppThunk => {
+  return (dispatch) => {
+    dispatch({
+      type: SENT_RESET_EMAIL
+    });
+    fetch(`${url}password-reset`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+      },
+      body: JSON.stringify({
+        email: email
       })
     })
-};
-
-
-export const sentResetPassword: AppThunk = (email: string, token: string) => (dispatch) => {
-  dispatch({
-    type: SENT_RESET_PASSWORD
-  });
-  fetch(`${url}password-reset/reset`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8'
-    },
-    body: JSON.stringify({
-      email: email,
-      token: token
-    })
-  })
-    .then(checkResponse)
-    .then(res => {
-      dispatch({
-        type: SENT_RESET_PASSWORD_SUCCES,
-      });
-    })
-    .catch(err => {
-
-      dispatch({
-        type: SENT_RESET_PASSWORD_FAILED
-      })
-    })
-};
-
-
-export const signIn: AppThunk = (email: string, password: string) => (dispatch) => {
-  dispatch({
-    type: SIGNIN
-  });
-  fetch(`${url}auth/login`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8'
-    },
-    body: JSON.stringify({
-      email: email,
-      password: password
-    })
-  })
-    .then(checkResponse)
-    .then(res => {
-      dispatch({
-        type: SIGNIN_SUCCES,
-        user: res.user
-      });
-      setTokens(res.accessToken, res.refreshToken)
-
-    })
-    .catch(err => {
-
-      dispatch({
-        type: SIGNIN_FAILED
-      })
-    })
-};
-
-
-export const register: AppThunk = (name: string, email: string, password: string) => (dispatch) => {
-  dispatch({
-    type: REGISTER
-  });
-  fetch(`${url}auth/register`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8'
-    },
-    body: JSON.stringify({
-      name: name,
-      email: email,
-      password: password
-    })
-  })
-    .then(checkResponse)
-    .then(res => {
-      dispatch({
-        type: REGISTER_SUCCES,
-        user: res.user
-      });
-      setTokens(res.accessToken, res.refreshToken)
-    })
-    .catch(err => {
-
-      dispatch({
-        type: REGISTER_FAILED
-      })
-    })
-};
-
-export const getUser: AppThunk = () => (dispatch: any) => {
-  dispatch({
-    type: GET_USER_REQUEST,
-  });
-
-  fetch(`${url}auth/user`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8',
-      'Authorization': `${getCookie('accessToken')}`
-    }
-  })
-    .then(
-      (res) => {
-
-        return res.json();
-
-      }
-    )
-    .then((res) => {
-
-      if (res.message === 'jwt expired') {
-        dispatch(refreshToken(getUser()));
-      }
-      if (res.success) {
+      .then(checkResponse)
+      .then(res => {
         dispatch({
-          type: GET_USER_SUCCES,
-          user: res.user,
+          type: SENT_RESET_EMAIL_SUCCES,
         });
-      }
-    })
-    .catch((err) => {
-      dispatch({
-        type: GET_USER_FAILED,
-        payload: err.message,
-      });
-    });
-};
+      })
+      .catch(err => {
 
-export const updateUser: AppThunk = (email: string, name: string, password: string) => (dispatch: any) => {
-  dispatch({
-    type: UPDATE_USER_REQUEST,
-  });
-
-  fetch(`${url}auth/user`, {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8',
-      'Authorization': `${getCookie('accessToken')}`,
-    },
-    body: JSON.stringify({
-      email: email,
-      name: name,
-      password: password
-    })
-  })
-    .then(
-      (res) => {
-
-        return res.json();
-      }
-    )
-    .then((res) => {
-
-      if (res.message === 'jwt expired') {
-        dispatch(refreshToken(updateUser()));
-      }
-      if (res.success) {
         dispatch({
-          type: UPDATE_USER_SUCCES,
-          user: res.user,
+          type: SENT_RESET_EMAIL_FAILED
+        })
+      })
+  }
+};
+
+
+export const sentResetPassword = (email: string, token: string): AppThunk => {
+  return (dispatch) => {
+    dispatch({
+      type: SENT_RESET_PASSWORD
+    });
+    fetch(`${url}password-reset/reset`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+      },
+      body: JSON.stringify({
+        email: email,
+        token: token
+      })
+    })
+      .then(checkResponse)
+      .then(res => {
+        dispatch({
+          type: SENT_RESET_PASSWORD_SUCCES,
         });
+      })
+      .catch(err => {
+
+        dispatch({
+          type: SENT_RESET_PASSWORD_FAILED
+        })
+      })
+  }
+};
+
+
+export const signIn = (email: string, password: string): AppThunk => {
+
+  return (dispatch) => {
+    dispatch({
+      type: SIGNIN
+    });
+    fetch(`${url}auth/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password
+      })
+    })
+      .then(checkResponse)
+      .then(res => {
+        dispatch({
+          type: SIGNIN_SUCCES,
+          user: res.user
+        });
+        setTokens(res.accessToken, res.refreshToken)
+
+      })
+      .catch(err => {
+
+        dispatch({
+          type: SIGNIN_FAILED
+        })
+      })
+  }
+
+};
+
+
+export const register = (name: string, email: string, password: string): AppThunk => {
+
+  return (dispatch) => {
+    dispatch({
+      type: REGISTER
+    });
+    fetch(`${url}auth/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+      },
+      body: JSON.stringify({
+        name: name,
+        email: email,
+        password: password
+      })
+    })
+      .then(checkResponse)
+      .then(res => {
+        dispatch({
+          type: REGISTER_SUCCES,
+          user: res.user
+        });
+        setTokens(res.accessToken, res.refreshToken)
+      })
+      .catch(err => {
+
+        dispatch({
+          type: REGISTER_FAILED
+        })
+      })
+  }
+
+};
+
+export const getUser = (): AppThunk => {
+  return (dispatch) => {
+    dispatch({
+      type: GET_USER_REQUEST,
+    });
+
+    fetch(`${url}auth/user`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        'Authorization': `${getCookie('accessToken')}`
       }
     })
-    .catch((err) => {
-      dispatch({
-        type: UPDATE_USER_FAILED,
-        payload: err.message,
+      .then(
+        (res) => {
+
+          return res.json();
+
+        }
+      )
+      .then((res) => {
+
+        if (res.message === 'jwt expired') {
+          dispatch(refreshToken(getUser()));
+        }
+        if (res.success) {
+          dispatch({
+            type: GET_USER_SUCCES,
+            user: res.user,
+          });
+        }
+      })
+      .catch((err) => {
+        dispatch({
+          type: GET_USER_FAILED,
+          payload: err.message,
+        });
       });
-    });
+  }
+
 };
 
-export const exit: AppThunk = () => (dispatch) => {
-  dispatch({
-    type: EXIT_REQUEST,
-  });
-
-  fetch(`${url}auth/logout`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8',
-      'authorization': `${getCookie('accessToken')}`
-    },
-    body: JSON.stringify({
-      token: localStorage.getItem('refreshToken')
-    })
-  })
-    .then(checkResponse)
-    .then((res) => {
-      dispatch({
-        type: EXIT_SUCCES,
-      });
-      deleteCookie('accessToken');
-      localStorage.removeItem('refreshToken');
-    })
-    .catch((err) => {
-      dispatch({
-        type: EXIT_FAILED,
-        payload: err.message,
-      });
+export const updateUser = (email: string, name: string, password: string): AppThunk => {
+  return (dispatch) => {
+    dispatch({
+      type: UPDATE_USER_REQUEST,
     });
+
+    fetch(`${url}auth/user`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        'Authorization': `${getCookie('accessToken')}`,
+      },
+      body: JSON.stringify({
+        email: email,
+        name: name,
+        password: password
+      })
+    })
+      .then(
+        (res) => {
+
+          return res.json();
+        }
+      )
+      .then((res) => {
+
+        if (res.message === 'jwt expired') {
+          dispatch(refreshToken(updateUser(email, name, password)));
+        }
+        if (res.success) {
+          dispatch({
+            type: UPDATE_USER_SUCCES,
+            user: res.user,
+          });
+        }
+      })
+      .catch((err) => {
+        dispatch({
+          type: UPDATE_USER_FAILED,
+          payload: err.message,
+        });
+      });
+  }
+
 };
 
-const refreshToken = (afterRefresh: any) => (dispatch: AppDispatch) => {
-  fetch(`${url}auth/token`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8'
-    },
-    body: JSON.stringify({
-      token: localStorage.getItem('refreshToken')
+export const exit = (): AppThunk => {
+  return (dispatch) => {
+    dispatch({
+      type: EXIT_REQUEST,
+    });
+
+    fetch(`${url}auth/logout`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        'authorization': `${getCookie('accessToken')}`
+      },
+      body: JSON.stringify({
+        token: localStorage.getItem('refreshToken')
+      })
     })
-  })
-    .then(checkResponse)
-    .then((res) => {
-      setTokens(res.accessToken, res.refreshToken);
-      dispatch(afterRefresh());
+      .then(checkResponse)
+      .then((res) => {
+        dispatch({
+          type: EXIT_SUCCES,
+        });
+        deleteCookie('accessToken');
+        localStorage.removeItem('refreshToken');
+      })
+      .catch((err) => {
+        dispatch({
+          type: EXIT_FAILED,
+          payload: err.message,
+        });
+      });
+  }
+
+};
+
+const refreshToken = (afterRefresh: any): AppThunk => {
+  return (dispatch) => {
+    fetch(`${url}auth/token`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+      },
+      body: JSON.stringify({
+        token: localStorage.getItem('refreshToken')
+      })
     })
-    .catch(err => console.log(err))
+      .then(checkResponse)
+      .then((res) => {
+        setTokens(res.accessToken, res.refreshToken);
+        dispatch(afterRefresh());
+      })
+      .catch(err => console.log(err))
+  }
+
 };
 

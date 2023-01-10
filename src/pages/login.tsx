@@ -6,13 +6,13 @@ import {
   signIn,
   getUser
 } from '../services/actions/current-user';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from '../services/hooks';
 import { useLocation } from "react-router";
 import './pages.css';
 import { ILocation } from '../utils/types';
 
 const Login: FC = () => {
-  const dispatch = useDispatch<any>();
+  const dispatch = useDispatch();
   const location = useLocation<ILocation>();
   const from = location.state?.from || "/";
   const [emailValue, setEmailValue] = useState<string>('');

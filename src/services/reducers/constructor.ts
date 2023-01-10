@@ -30,7 +30,7 @@ export const constructorReducer = (state = initialState, action: TConstructorAct
         ...state,
         selectedConstructorIngridients:
           [...state.selectedConstructorIngridients,
-          action.id,
+          action._id,
           ],
         selectedItems: [
           ...state.selectedItems,

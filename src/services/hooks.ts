@@ -1,17 +1,12 @@
 import {
   TypedUseSelectorHook,
-  useDispatch,
-  useSelector
-} from 'react-redux';
+  useDispatch as dispatchHook,
+  useSelector as selectorHook,
+} from "react-redux";
 import { AppDispatch, AppThunk, RootState } from '../utils/types';
 
-// Теперь этот хук «знает» структуру хранилища
 
 
+export const useDispatch: () => AppDispatch = dispatchHook;
+export const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
 
-
-export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
-
-// Хук не даст отправить экшен, который ему не знаком
-export const useAppDispatch = () => useDispatch<AppDispatch>();
-// export const useDispatch: () => AppDispatch = useDispatch;

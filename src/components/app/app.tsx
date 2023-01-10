@@ -14,11 +14,12 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 import {
   HIDE_INGRIDIENT_DETAILS,
 } from '../../services/constants/current-ingridient';
-import { useAppSelector, useAppDispatch } from '../../services/hooks';
+import { useSelector, useDispatch } from '../../services/hooks';
 import Modal from '../modal/modal';
 import {
   getIngridients
 } from '../../services/actions/ingridients';
+import { IIngredient } from '../../utils/types';
 
 
 const App: FC = () => {
@@ -26,10 +27,11 @@ const App: FC = () => {
 
     const location = useLocation<any>();
     const history = useHistory();
-    const dispatch = useAppDispatch();
+    const dispatch = useDispatch();
     const background = location.state && location.state.background;
 
-    const { currentIngridientDetails } = useAppSelector((state: any) => state.currentIngridientDetails);
+    const { currentIngridientDetails } = useSelector((state: any) => state.currentIngridientDetails);
+
     const closePopupIngridientDetails = useCallback(() => {
       dispatch({
         type: HIDE_INGRIDIENT_DETAILS

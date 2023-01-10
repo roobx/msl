@@ -1,6 +1,7 @@
 import { useState, useRef, useCallback, useEffect, FC } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+
+import { useSelector, useDispatch } from '../services/hooks';
 import {
   register,
   getUser
@@ -10,7 +11,7 @@ import { Input, PasswordInput, Button } from '@ya.praktikum/react-developer-burg
 import './pages.css';
 
 const Register: FC = () => {
-  const dispatch = useDispatch<any>();
+  const dispatch = useDispatch();
   const [emailRegisterValue, setEmailRegisterValue] = useState<string>('');
   const inputEmailRegisterRef = useRef<HTMLInputElement>(null);
   const [nameRegisterValue, setNameRegisterValue] = useState<string>('');

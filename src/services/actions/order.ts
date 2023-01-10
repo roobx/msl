@@ -8,8 +8,7 @@ import {
   CLOSE_ORDER_DETAILS,
 } from '../constants/order';
 import {
-  AppThunk,
-  AppDispatch
+  AppThunk
 } from '../../utils/types';
 
 export interface IGetOrderNumber {
@@ -40,35 +39,38 @@ export type TOrderActions =
   | IOpenOrderDetails
   | ICloseOrderDetails;
 
-export const getOrderNumber: AppThunk = (ingridientsId: string[]) => (dispatch) => {
-  dispatch({
-    type: GET_ORDER_NUMBER
-  });
-  fetch(`${url}orders`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8'
-    },
-    body: JSON.stringify({
-      ingredients: ingridientsId
-    })
-  })
-    .then(checkResponse)
-    .then(res => {
-      dispatch({
-        type: GET_ORDER_NUMBER_SUCCES,
-        orderNumber: res.order.number
-      });
-      dispatch({
-        type: OPEN_ORDER_DETAILS
-      });
-    })
-    .catch(err => {
-      console.log(err);
-      dispatch({
-        type: GET_ORDER_NUMBER_FAILED
+export const getOrderNumber = (ingridientsId: string[]): AppThunk => {
+  return (dispatch) => {
+    dispatch({
+      type: GET_ORDER_NUMBER
+    });
+    fetch(`${url}orders`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+      },
+      body: JSON.stringify({
+        ingredients: ingridientsId
       })
     })
+      .then(checkResponse)
+      .then(res => {
+        dispatch({
+          type: GET_ORDER_NUMBER_SUCCES,
+          orderNumber: res.order.number
+        });
+        dispatch({
+          type: OPEN_ORDER_DETAILS
+        });
+      })
+      .catch(err => {
+        console.log(err);
+        dispatch({
+          type: GET_ORDER_NUMBER_FAILED
+        })
+      })
+  }
+
 };
 
 

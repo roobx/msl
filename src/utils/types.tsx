@@ -1,14 +1,13 @@
-import { store } from '../index';
+import { rootReducer } from '../services/reducers/index';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
-import { Action, ActionCreator } from 'redux';
 import { TConstructorActions } from '../services/actions/constructor';
 import { TCurrentIngridientActions } from '../services/actions/current-ingridient';
 import { TCurrentUserActions } from '../services/actions/current-user';
 import { TIngridientsActions } from '../services/actions/ingridients';
 import { TOrderActions } from '../services/actions/order';
+import type { } from "redux-thunk/extend-redux";
 
-
-export type RootState = ReturnType<typeof store.getState>;
+export type RootState = ReturnType<typeof rootReducer>;
 
 type TApplicationActions =
   TConstructorActions
@@ -17,9 +16,6 @@ type TApplicationActions =
   | TIngridientsActions
   | TOrderActions;
 
-// export type AppThunk<TReturn = void> = ActionCreator<
-//   ThunkAction<TReturn, Action, RootState, TConstructorActions>
-// >;
 
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,
@@ -27,9 +23,13 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   unknown,
   TApplicationActions
 >;
-export type AppDispatch = ThunkDispatch<RootState, never, TApplicationActions>;
 
-// export type AppDispatch = ThunkDispatch<RootState, never, TApplicationActions>;
+
+export type AppDispatch<TReturnType = void> = (
+  action: TApplicationActions | AppThunk<TReturnType>
+) => TReturnType;
+
+
 
 export interface IIngredient {
   calories: number,

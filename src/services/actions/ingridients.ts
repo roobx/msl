@@ -12,8 +12,7 @@ import {
 } from '../../utils/types';
 
 import {
-  AppThunk,
-  AppDispatch
+  AppThunk
 } from '../../utils/types';
 
 export interface IGetIngridients {
@@ -35,22 +34,24 @@ export type TIngridientsActions =
   | IGetIngridientsFailed;
 
 
-export const getIngridients: AppThunk = () => (dispatch: AppDispatch) => {
-  dispatch({
-    type: GET_INGRIDIENTS
-  });
-  fetch(`${url}ingredients`)
-    .then(checkResponse)
-    .then(res => {
-      dispatch({
-        type: GET_INGRIDIENTS_SUCCES,
-        ingridients: res.data
+export const getIngridients = (): AppThunk => {
+  return (dispatch) => {
+    dispatch({
+      type: GET_INGRIDIENTS
+    });
+    fetch(`${url}ingredients`)
+      .then(checkResponse)
+      .then(res => {
+        dispatch({
+          type: GET_INGRIDIENTS_SUCCES,
+          ingridients: res.data
+        })
       })
-    })
-    .catch(err => {
-      console.log(err);
-      dispatch({
-        type: GET_INGRIDIENTS_FAILED
+      .catch(err => {
+        console.log(err);
+        dispatch({
+          type: GET_INGRIDIENTS_FAILED
+        })
       })
-    })
+  }
 }

@@ -1,5 +1,6 @@
 import { useMemo, useEffect, FC } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+
+import { useSelector, useDispatch } from '../../services/hooks';
 import IngredientDetailsStyles from './ingredient-details.module.css';
 import { useLocation } from "react-router";
 import {

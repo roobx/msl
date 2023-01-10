@@ -1,8 +1,8 @@
 import { useState, useCallback, useEffect, FC } from 'react'
 import burgerConstructorStyles from './burger-constructor.module.css';
 import { ConstructorElement, Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useSelector, useDispatch, shallowEqual } from 'react-redux';
-
+import { shallowEqual } from 'react-redux';
+import { useSelector, useDispatch } from '../../services/hooks';
 import {
   SET_BUN_ID,
   ADD_SELECTED_CONSTRUCTOR_INGRIDIENTS,
@@ -27,10 +27,10 @@ type OnButtonClickCallback = () => void;
 
 const BurgerConstructor: FC = () => {
   const history = useHistory();
-  const dispatch = useDispatch<any>();
+  const dispatch = useDispatch();
   const [selectedBun, setSelectedBun] = useState<IIngredient | null>(null);
   const [totalPrice, setTotalPrice] = useState<number>(0);
-  const { ingridients, selectedConstructorIngridients, orderNumberRequest, selectedItems, bun, currentUser } = useSelector((state: any) => ({
+  const { ingridients, selectedConstructorIngridients, orderNumberRequest, selectedItems, bun, currentUser } = useSelector((state) => ({
     ingridients: state.ingridients.ingridients,
     selectedConstructorIngridients: state.constructorItem.selectedConstructorIngridients,
     orderNumberRequest: state.order.orderNumberRequest,

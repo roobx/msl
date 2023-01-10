@@ -1,6 +1,7 @@
 import { useState, useRef, useCallback, useEffect, FC } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+
+import { useSelector, useDispatch } from '../services/hooks';
 import pagesStyles from './pages.module.css';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import {
@@ -12,7 +13,7 @@ import './pages.css';
 
 
 const ResetPassword: FC = () => {
-  const dispatch = useDispatch<any>();
+  const dispatch = useDispatch();
 
   const [passwordResetValue, setPasswordResetValue] = useState<string>('');
   const inputEmailResetRef = useRef<HTMLInputElement>(null);

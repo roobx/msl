@@ -1,14 +1,14 @@
 import React, { useEffect, FC } from 'react';
 import { Redirect, Route, RouteProps } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from '../../services/hooks';
 import {
   getUser,
 } from '../../services/actions/current-user';
 
 const ProtectedRoute: FC<RouteProps & { children?: React.ReactNode }> = ({ children, ...rest }) => {
-  const dispatch = useDispatch<any>();
+  const dispatch = useDispatch();
 
-  const currentUser = useSelector((state: any) => state.currentUser.currentUser);
+  const currentUser = useSelector((state) => state.currentUser.currentUser);
 
   useEffect(() => {
     dispatch(getUser());

@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import checkImg from '../../images/graphics.svg'
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../services/hooks';
 
 const OrderDetails: FC = () => {
-  const { orderNumber } = useSelector((state: any) => state.order);
+  const { orderNumber } = useSelector((state) => state.order);
   return (
     <>
       <p className="mt-20 text text_type_digits-large">{orderNumber}</p>

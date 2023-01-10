@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect, FC } from 'react';
 import { NavLink } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+
+import { useSelector, useDispatch } from '../services/hooks';
 import {
   getUser,
   updateUser,
@@ -11,9 +12,9 @@ import { Input, PasswordInput, Button } from '@ya.praktikum/react-developer-burg
 import './pages.css';
 
 const Pofile: FC = () => {
-  const dispatch = useDispatch<any>();
+  const dispatch = useDispatch();
 
-  const currentUser = useSelector((state: any) => state.currentUser.currentUser);
+  const currentUser = useSelector((state) => state.currentUser.currentUser);
 
   const [emailProfileValue, setEmailProfileValue] = useState<string>('');
 

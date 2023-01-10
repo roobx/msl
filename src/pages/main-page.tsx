@@ -1,5 +1,6 @@
 import { useCallback, FC } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+
+import { useSelector, useDispatch } from '../services/hooks';
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import pagesStyles from './pages.module.css';
@@ -15,7 +16,7 @@ import {
 } from '../services/constants/constructor';
 
 const MainPage: FC = () => {
-  const dispatch = useDispatch<any>();
+  const dispatch = useDispatch();
   const { orderDetailsOpened } = useSelector((state: any) => state.order);
 
   const closePopupOrder = useCallback(() => {
