@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect, FC } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 
 import { useSelector, useDispatch } from '../services/hooks';
 import {
@@ -10,9 +10,13 @@ import {
 import pagesStyles from './pages.module.css';
 import { Input, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import './pages.css';
+import { ILocation } from '../utils/types';
+import MyOrders from '../components/my-orders/my-orders';
 
 const Pofile: FC = () => {
   const dispatch = useDispatch();
+
+  const location = useLocation<ILocation>();
 
   const currentUser = useSelector((state) => state.currentUser.currentUser);
 
@@ -83,60 +87,63 @@ const Pofile: FC = () => {
             </button>
           </li>
         </ul>
-        <div className={pagesStyles.form}>
-          <Input
-            type={'text'}
-            placeholder={'Имя'}
-            onChange={e => setNameProfileValue(e.target.value)}
-            value={nameProfileValue}
-            name={'name'}
-            error={false}
-            errorText={'Ошибка'}
-            icon="EditIcon"
-          />
-          <Input
-            type={'text'}
-            placeholder={'E-mail'}
-            onChange={e => setEmailProfileValue(e.target.value)}
-            value={emailProfileValue}
-            name={'email'}
-            error={false}
-            errorText={'Ошибка'}
-            icon="EditIcon"
-          />
-          <PasswordInput
-            onChange={e => setPasswordProfileValue(e.target.value)}
-            value={passwordProfileValue}
-            name={'password'}
-          />
-          {(emailProfileValue !== currentUser.email || nameProfileValue !== currentUser.name || passwordProfileValue) &&
-            (<div className={`mb-20 ${pagesStyles.button_container}`}>
-              <div className='mr-4'>
+        {location.pathname === '/profile' &&
+          (<div className={pagesStyles.form}>
+            <Input
+              type={'text'}
+              placeholder={'Имя'}
+              onChange={e => setNameProfileValue(e.target.value)}
+              value={nameProfileValue}
+              name={'name'}
+              error={false}
+              errorText={'Ошибка'}
+              icon="EditIcon"
+            />
+            <Input
+              type={'text'}
+              placeholder={'E-mail'}
+              onChange={e => setEmailProfileValue(e.target.value)}
+              value={emailProfileValue}
+              name={'email'}
+              error={false}
+              errorText={'Ошибка'}
+              icon="EditIcon"
+            />
+            <PasswordInput
+              onChange={e => setPasswordProfileValue(e.target.value)}
+              value={passwordProfileValue}
+              name={'password'}
+            />
+            {(emailProfileValue !== currentUser.email || nameProfileValue !== currentUser.name || passwordProfileValue) &&
+              (<div className={`mb-20 ${pagesStyles.button_container}`}>
+                <div className='mr-4'>
+                  <Button
+                    onClick={onUndoCallback}
+                    type="primary"
+                    size="medium"
+                    htmlType='submit'
+                  >
+                    Отменить
+                  </Button>
+                </div>
+
                 <Button
-                  onClick={onUndoCallback}
+                  onClick={onSaveCallback}
                   type="primary"
                   size="medium"
                   htmlType='button'
                 >
-                  Отменить
+                  Сохранить
                 </Button>
-              </div>
-
-              <Button
-                onClick={onSaveCallback}
-                type="primary"
-                size="medium"
-                htmlType='button'
-              >
-                Сохранить
-              </Button>
-            </div>)}
-        </div>
+              </div>)}
+          </div>)}
+        {location.pathname === '/profile/orders' && <MyOrders />}
 
       </div>
-      <p className={`text text_type_main-default text_color_inactive ${pagesStyles.text_footer_profile}`}>
-        В этом разделе вы можете изменить свои персональные данные
-      </p>
+      {location.pathname === '/profile' &&
+        (<p className={`text text_type_main-default text_color_inactive ${pagesStyles.text_footer_profile}`}>
+          В этом разделе вы можете изменить свои персональные данные
+        </p>)}
     </div>
   );
 }

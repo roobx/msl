@@ -11,6 +11,7 @@ import ResetPassword from '../../pages/reset-password';
 import Profile from '../../pages/profile';
 import ProtectedRoute from '../protected-route/protected-route';
 import IngredientDetails from '../ingredient-details/ingredient-details';
+import Feed from '../../pages/feed-page'
 import {
   HIDE_INGRIDIENT_DETAILS,
 } from '../../services/constants/current-ingridient';
@@ -19,24 +20,24 @@ import Modal from '../modal/modal';
 import {
   getIngridients
 } from '../../services/actions/ingridients';
-import { IIngredient } from '../../utils/types';
+import OrderInfo from '../order/order-info';
 
 
 const App: FC = () => {
   const ModalSwitch = () => {
 
-    const location = useLocation<any>();
+    const locationHook = useLocation<any>();
     const history = useHistory();
     const dispatch = useDispatch();
-    const background = location.state && location.state.background;
+    const background = locationHook.state && locationHook.state.background;
 
-    const { currentIngridientDetails } = useSelector((state: any) => state.currentIngridientDetails);
+    const { currentIngridientDetails } = useSelector((state) => state.currentIngridientDetails);
 
     const closePopupIngridientDetails = useCallback(() => {
       dispatch({
         type: HIDE_INGRIDIENT_DETAILS
       });
-      if (location?.state?.id) history.goBack()
+      if (locationHook?.state?.id) history.goBack()
       else history.push('/')
     }, [dispatch]);
 
@@ -50,7 +51,7 @@ const App: FC = () => {
         <div className={`pr-4 pl-4 ${appStyles.page}`}>
           <AppHeader />
           <main className={`${appStyles.main}`}>
-            <Switch location={background || location}>
+            <Switch location={background || locationHook}>
               <Route exact path="/">
                 <MainPage />
               </Route>
@@ -66,32 +67,74 @@ const App: FC = () => {
               <Route exact path="/reset-password">
                 <ResetPassword />
               </Route>
+              <Route exact path="/feed">
+                <Feed />
+              </Route>
               <ProtectedRoute exact path="/profile">
                 <Profile />
               </ProtectedRoute>
               <ProtectedRoute exact path="/profile/orders">
                 <Profile />
               </ProtectedRoute>
+
               <Route path='/ingredients/:ingredientId' exact>
                 <div className={appStyles.ingridient}>
                   <IngredientDetails />
                 </div>
               </Route>
+              <Route path='/feed/:id' exact>
+                <div className={appStyles.ingridient}>
+                  <OrderInfo />
+                </div>
+              </Route>
+              <Route path='/profile/orders/:id' exact>
+                <div className={appStyles.ingridient}>
+                  <OrderInfo />
+                </div>
+              </Route>
             </Switch>
 
             {background && (
-              <Route
-                path='/ingredients/:ingredientId'
-                children={
-                  <Modal
-                    title='Детали ингридиента'
-                    opened={currentIngridientDetails._id ? true : false}
-                    onClose={closePopupIngridientDetails}
-                  >
-                    <IngredientDetails />
-                  </Modal>
-                }
-              />
+              <Switch>
+                <Route
+                  exact
+                  path='/ingredients/:ingredientId'
+                  children={
+                    <Modal
+                      title='Детали ингридиента'
+                      opened={currentIngridientDetails ? true : false}
+                      onClose={closePopupIngridientDetails}
+                    >
+                      <IngredientDetails />
+                    </Modal>
+                  }
+                />
+                <Route
+                  exact
+                  path='/feed/:id'
+                  children={
+                    <Modal
+                      opened={currentIngridientDetails ? true : false}
+                      onClose={() => history.goBack()}
+                    >
+                      <OrderInfo />
+                    </Modal>
+                  }
+                />
+                <Route
+                  exact
+                  path='/profile/orders/:id'
+                  children={
+                    <Modal
+                      opened={currentIngridientDetails ? true : false}
+                      onClose={() => history.goBack()}
+                    >
+                      <OrderInfo />
+                    </Modal>
+                  }
+                />
+              </Switch>
+
             )}
           </main>
         </div>

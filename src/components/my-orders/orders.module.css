@@ -1,0 +1,20 @@
+
+.items {
+  max-height: 600px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  width: 608px;
+  margin: 0 auto;
+}
+
+.items::-webkit-scrollbar {
+  width: 8px;
+  background: #2F2F37;
+  
+}
+
+.items::-webkit-scrollbar-thumb {
+  background: #8585AD;
+  border: 3px solid #8585AD;
+  margin-left: 8px;
+}

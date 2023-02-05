@@ -20,7 +20,7 @@ const Register: FC = () => {
   const inputPasswordRegisterRef = useRef<HTMLInputElement>(null);
 
 
-  const { currentUser } = useSelector((state: any) => state.currentUser);
+  const { currentUser } = useSelector((state) => state.currentUser);
 
   const onSubmitRegister = useCallback((e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -71,7 +71,7 @@ const Register: FC = () => {
         <Button
           type="primary"
           size="medium"
-          htmlType='button'
+          htmlType='submit'
         >
           Зарегистрироваться
         </Button>

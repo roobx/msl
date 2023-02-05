@@ -12,7 +12,7 @@
 }
 
 .items {
-  max-height: 690px;
+  max-height: 600px;
   overflow-y: scroll;
 }
 

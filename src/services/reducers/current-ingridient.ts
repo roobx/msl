@@ -8,11 +8,24 @@ import {
 import { TCurrentIngridientActions } from '../actions/current-ingridient';
 
 type TCurrentIngridientState = {
-  currentIngridientDetails: IIngredient | null;
+  currentIngridientDetails: IIngredient;
 }
 
 export const initialState: TCurrentIngridientState = {
-  currentIngridientDetails: null,
+  currentIngridientDetails: {
+    calories: 0,
+    carbohydrates: 0,
+    fat: 0,
+    image: '',
+    image_large: '',
+    image_mobile: '',
+    name: '',
+    price: 0,
+    proteins: 0,
+    type: '',
+    __v: 0,
+    _id: ''
+  },
 }
 
 export const currentIngridientDetailsReducer = (state = initialState, action: TCurrentIngridientActions) => {

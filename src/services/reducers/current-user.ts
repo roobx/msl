@@ -25,6 +25,7 @@ import {
   ICurrentUser
 } from '../../utils/types';
 import { TCurrentUserActions } from '../actions/current-user';
+
 type TCurrentUserState = {
   currentUser: ICurrentUser;
 }

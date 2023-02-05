@@ -14,6 +14,7 @@ import {
 import {
   constructorReducer
 } from './constructor';
+import { wsReducer } from './feed'
 
 export const rootReducer = combineReducers({
   ingridients: ingridientsReducer,
@@ -21,4 +22,5 @@ export const rootReducer = combineReducers({
   currentIngridientDetails: currentIngridientDetailsReducer,
   order: orderReducer,
   currentUser: currentUserReducer,
+  feed: wsReducer,
 });

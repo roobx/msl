@@ -64,8 +64,8 @@ const BurgerIngriiednts: FC = () => {
 
   }, []);
 
-  const { ingridients } = useSelector((state: any) => state.ingridients);
-  const { selectedConstructorIngridients } = useSelector((state: any) => ({
+  const { ingridients } = useSelector((state) => state.ingridients);
+  const { selectedConstructorIngridients } = useSelector((state) => ({
     selectedConstructorIngridients: [...state.constructorItem.selectedConstructorIngridients, state.constructorItem.bunId],
 
   }), shallowEqual);

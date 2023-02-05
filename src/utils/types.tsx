@@ -1,20 +1,27 @@
 import { rootReducer } from '../services/reducers/index';
-import { ThunkAction, ThunkDispatch } from 'redux-thunk';
+import { ThunkAction } from 'redux-thunk';
 import { TConstructorActions } from '../services/actions/constructor';
 import { TCurrentIngridientActions } from '../services/actions/current-ingridient';
 import { TCurrentUserActions } from '../services/actions/current-user';
 import { TIngridientsActions } from '../services/actions/ingridients';
 import { TOrderActions } from '../services/actions/order';
+import { TSocketActions } from '../services/actions/socket'
 import type { } from "redux-thunk/extend-redux";
 
 export type RootState = ReturnType<typeof rootReducer>;
 
-type TApplicationActions =
+export type TApplicationActions =
   TConstructorActions
   | TCurrentIngridientActions
   | TCurrentUserActions
   | TIngridientsActions
-  | TOrderActions;
+  | TOrderActions
+  | TSocketActions;
+
+export type TAppActions = {
+  type: string;
+  payload?: string;
+}
 
 
 export type AppThunk<ReturnType = void> = ThunkAction<
@@ -77,6 +84,7 @@ export interface ILocation {
   from?: Location;
   background?: Location;
   pathname?: string;
+  id?: string;
 }
 
 export interface IUser {
@@ -109,3 +117,17 @@ export interface ICurrentUser {
   exitRequest: boolean;
   exitFailed: boolean;
 }
+
+
+export type ISocketDataOrder = {
+  ingredients: string[];
+  _id: string;
+  status: string;
+  number: number;
+  createdAt: string;
+  name: string;
+  updatedAt: string;
+};
+
+
+

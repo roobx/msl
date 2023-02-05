@@ -12,6 +12,7 @@
   opacity: 1;
   /* transition: visibility 0.3s, opacity 0.3s linear; */
   cursor: pointer;
+  z-index: 10;
 }
 
 .popup_opened {

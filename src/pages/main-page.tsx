@@ -17,7 +17,7 @@ import {
 
 const MainPage: FC = () => {
   const dispatch = useDispatch();
-  const { orderDetailsOpened } = useSelector((state: any) => state.order);
+  const { orderDetailsOpened } = useSelector((state) => state.order);
 
   const closePopupOrder = useCallback(() => {
     dispatch({

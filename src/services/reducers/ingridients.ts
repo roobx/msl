@@ -12,7 +12,7 @@ import { TIngridientsActions } from '../actions/ingridients';
 type TIngridientState = {
   ingridientsRequest: boolean;
   ingridientsFailed: boolean;
-  ingridients: IIngredient | [];
+  ingridients: IIngredient[];
 }
 
 const initialState: TIngridientState = {

@@ -18,7 +18,7 @@ const AppHeader: FC = () => {
         </NavLink>
         <NavLink
           exact
-          to='/profile/orders'
+          to='/feed'
           className={`${appHeaderStyles.menubutton}`}
           activeClassName={appHeaderStyles.menubutton_active}
         >

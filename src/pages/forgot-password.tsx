@@ -15,12 +15,12 @@ const ForgotPassword: FC = () => {
 
   const [emailForgotValue, setEmailForgotValue] = useState<string>('');
   const inputEmailForgotRef = useRef<HTMLInputElement>(null);
-  const { currentUser } = useSelector((state: any) => state.currentUser);
+  const { currentUser } = useSelector((state) => state.currentUser);
 
   const onSubmitForgot = useCallback((e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(sentResetEmail(emailForgotValue));
-
+    console.log(emailForgotValue);
   }, [dispatch, emailForgotValue]);
 
   useEffect(() => {
@@ -64,7 +64,7 @@ const ForgotPassword: FC = () => {
         <Button
           type="primary"
           size="medium"
-          htmlType='button'
+          htmlType='submit'
         >
           {!currentUser.resetEmailRequest ? 'Восстановить' : '...Отправляем письмо'}
         </Button>

@@ -10,6 +10,7 @@ import {
 import {
   AppThunk
 } from '../../utils/types';
+import { getCookie } from '../../utils/utils';
 
 export interface IGetOrderNumber {
   readonly type: typeof GET_ORDER_NUMBER;
@@ -47,7 +48,8 @@ export const getOrderNumber = (ingridientsId: string[]): AppThunk => {
     fetch(`${url}orders`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json;charset=utf-8'
+        'Content-Type': 'application/json;charset=utf-8',
+        'Authorization': `${getCookie("accessToken")}`,
       },
       body: JSON.stringify({
         ingredients: ingridientsId

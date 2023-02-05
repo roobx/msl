@@ -13,7 +13,7 @@ const IngredientDetails: FC = () => {
   const dispatch = useDispatch();
   const currentIngridientDetailsStore = useSelector((state: any) => state.currentIngridientDetails.currentIngridientDetails);
   const location = useLocation<ILocation>();
-  const { ingridients } = useSelector((state: any) => state.ingridients);
+  const { ingridients } = useSelector((state) => state.ingridients);
 
 
   const currentIngridientDetails = useMemo(

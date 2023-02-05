@@ -1,3 +1,5 @@
+import { IIngredient } from '../utils/types';
+
 export function getCookie(name: string) {
   const matches = document.cookie.match(
     new RegExp('(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)')
@@ -38,3 +40,39 @@ export function setTokens(accessToken: string, refreshToken: string) {
 }
 
 export const checkResponse = (res: Response) => res.ok ? res.json() : Promise.reject(res.status);
+
+
+export const CreatedOrderDay = (date: Date, orderDate: Date) => {
+  const dateNum = Date.parse(date.toISOString().slice(0, 10));
+  const orderDateNum = Date.parse(orderDate.toISOString().slice(0, 10));
+  return dateNum - orderDateNum === 0
+    ? 'Сегодня'
+    : (dateNum - orderDateNum) / 86400000 === 1
+      ? 'Вчера'
+      : `${(dateNum - orderDateNum) / 86400000}  ${'дня(ей) назад,'}`;
+};
+
+export const getOrderDate = (createdAt: string) => {
+  if (createdAt) {
+    const date = new Date();
+    const orderDate = new Date(createdAt);
+    const hours =
+      orderDate.getHours() > 9
+        ? `${orderDate.getHours()}`
+        : `0${orderDate.getHours()}`;
+    const minutes =
+      orderDate.getMinutes() > 9
+        ? `${orderDate.getMinutes()}`
+        : `0${orderDate.getMinutes()}`;
+
+    return `${CreatedOrderDay(date, orderDate)} ${hours}:${minutes}`;
+  }
+};
+
+export const getOrderPrice = (ingredients: IIngredient[]) => {
+  return ingredients?.reduce(
+    (item, curr) =>
+      curr.type === 'bun' ? 2 * curr.price + item : item + curr.price,
+    0
+  );
+};

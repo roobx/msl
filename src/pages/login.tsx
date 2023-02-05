@@ -20,11 +20,12 @@ const Login: FC = () => {
   const [passwordValue, setPasswordValue] = useState<string>('');
   const inputPasswordRef = useRef<HTMLInputElement>(null);
 
-  const { currentUser } = useSelector((state: any) => state.currentUser);
+  const { currentUser } = useSelector((state) => state.currentUser);
 
   const onSubmitLogin = useCallback((e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(signIn(emailValue, passwordValue));
+    console.log('124')
   }, [dispatch, emailValue, passwordValue]);
   useEffect(() => {
     dispatch(getUser());
@@ -58,7 +59,7 @@ const Login: FC = () => {
         <Button
           type="primary"
           size="medium"
-          htmlType='button'
+          htmlType='submit'
         >
           {!currentUser.signInRequest ? 'Вход' : '...Взлетаем!'}
         </Button>

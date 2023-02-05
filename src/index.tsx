@@ -6,6 +6,8 @@ import './index.css';
 import App from './components/app/app';
 import { Provider } from 'react-redux';
 import { rootReducer } from './services/reducers/index';
+import { socketMiddleware } from './services/middleware/socket-middleware';
+import { wsUrl } from './utils/consts';
 
 declare global {
   interface Window {
@@ -16,10 +18,10 @@ declare global {
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const enhancer = composeEnhancers(applyMiddleware(thunk));
+const enhancer = composeEnhancers(applyMiddleware(thunk), applyMiddleware(socketMiddleware(wsUrl)));
+
 
 export const store = createStore(rootReducer, enhancer);
-
 
 ReactDOM.render(
   <React.StrictMode>

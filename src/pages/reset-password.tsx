@@ -21,7 +21,7 @@ const ResetPassword: FC = () => {
   const [codeResetValue, setCodeResetValue] = useState<string>('');
   const inputCodeResetRef = useRef<HTMLInputElement>(null);
 
-  const { currentUser } = useSelector((state: any) => state.currentUser)
+  const { currentUser } = useSelector((state) => state.currentUser)
 
   const onSubmitReset = useCallback((e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -78,7 +78,7 @@ const ResetPassword: FC = () => {
         <Button
           type="primary"
           size="medium"
-          htmlType='button'
+          htmlType='submit'
         >
           {!currentUser.resetPasswordRequest ? 'Сохранить' : '...Сохраняем'}
 

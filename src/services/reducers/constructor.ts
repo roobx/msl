@@ -12,15 +12,15 @@ import {
 import { TConstructorActions } from '../actions/constructor';
 
 type TConstructorState = {
-  selectedConstructorIngridients: ReadonlyArray<IIngredientItem>;
+  selectedConstructorIngridients: string[];
   bunId: string;
-  selectedItems: [];
+  selectedItems: IIngredientItem[];
 }
 
 const initialState: TConstructorState = {
   selectedConstructorIngridients: [],
   bunId: '',
-  selectedItems: []
+  selectedItems: [],
 }
 
 export const constructorReducer = (state = initialState, action: TConstructorActions) => {

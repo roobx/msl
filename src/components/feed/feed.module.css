@@ -1,0 +1,50 @@
+
+.feed_info {
+  display:flex;
+  flex-direction: column;
+}
+
+.feed_numbers {
+  display: flex;
+}
+
+.feed_numbers_item {
+  width: 272px;
+  overflow: hidden;
+}
+
+.feed_numbers_list {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  padding-left: 0;
+  list-style-type: none;
+  height: 152px;
+ }
+
+ .feed_numbers_list_item {
+  margin-right: 18px;
+ }
+
+.feed_numbers_in_process {
+ color: #00CCCC;
+}
+
+.items {
+  max-height: 600px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  width: 608px;
+}
+
+.items::-webkit-scrollbar {
+  width: 8px;
+  background: #2F2F37;
+  
+}
+
+.items::-webkit-scrollbar-thumb {
+  background: #8585AD;
+  border: 3px solid #8585AD;
+  margin-left: 8px;
+}

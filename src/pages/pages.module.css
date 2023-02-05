@@ -69,4 +69,13 @@
   cursor: pointer;
 }
 
+.feed {
+  display: flex;
+ 
+}
+
+.feed_container {
+  width: 100%;
+  align-self: flex-start;
+}
 
