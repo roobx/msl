@@ -1,7 +1,7 @@
 import { useState, useRef, useCallback, useEffect, FC } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import pagesStyles from './pages.module.css';
-import { Input, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import {
   signIn,
   getUser
@@ -10,6 +10,7 @@ import { useSelector, useDispatch } from '../services/hooks';
 import { useLocation } from "react-router";
 import './pages.css';
 import { ILocation } from '../utils/types';
+import { Button } from '../../src/components/ui-yandex/ui-yandex';
 
 const Login: FC = () => {
   const dispatch = useDispatch();

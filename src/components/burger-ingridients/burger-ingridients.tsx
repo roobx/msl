@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback, FC } from 'react';
 
 import burgerIngridientsStyles from './burger-ingridients.module.css';
-import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Tab } from '../ui-yandex/ui-yandex';
 import { shallowEqual } from 'react-redux';
 import { useSelector, useDispatch } from '../../services/hooks';
 import BurgerIngridient from './burger-ingridient'

@@ -2,12 +2,13 @@ import { useState, useRef, useCallback, useEffect, FC } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from '../services/hooks';
 import pagesStyles from './pages.module.css';
-import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import {
   sentResetEmail,
   getUser
 } from '../services/actions/current-user';
 import './pages.css';
+import { Button } from '../../src/components/ui-yandex/ui-yandex';
 
 const ForgotPassword: FC = () => {
 

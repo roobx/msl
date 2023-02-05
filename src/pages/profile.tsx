@@ -8,10 +8,11 @@ import {
   exit
 } from '../services/actions/current-user';
 import pagesStyles from './pages.module.css';
-import { Input, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import './pages.css';
 import { ILocation } from '../utils/types';
 import MyOrders from '../components/my-orders/my-orders';
+import { Button } from '../../src/components/ui-yandex/ui-yandex';
 
 const Pofile: FC = () => {
   const dispatch = useDispatch();

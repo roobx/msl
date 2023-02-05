@@ -7,8 +7,9 @@ import {
   getUser
 } from '../services/actions/current-user';
 import pagesStyles from './pages.module.css';
-import { Input, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import './pages.css';
+import { Button } from '../../src/components/ui-yandex/ui-yandex';
 
 const Register: FC = () => {
   const dispatch = useDispatch();

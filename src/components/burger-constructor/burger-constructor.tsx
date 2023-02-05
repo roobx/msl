@@ -2,7 +2,6 @@ import { useState, useCallback, useEffect, FC } from "react";
 import burgerConstructorStyles from "./burger-constructor.module.css";
 import {
   ConstructorElement,
-  Button,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { shallowEqual } from "react-redux";
@@ -19,6 +18,7 @@ import { useDrop } from "react-dnd";
 import ConstructorItem from "./constructorItem";
 import { v4 as uuidv4 } from "uuid";
 import { IIngredient, IIngredientItem } from "../../utils/types";
+import { Button } from '../ui-yandex/ui-yandex';
 
 type CloseCallback = (id: string) => void;
 type DragCallback = (dragIndex: number, hoverIndex: number) => void;
