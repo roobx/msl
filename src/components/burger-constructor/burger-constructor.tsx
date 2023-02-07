@@ -79,7 +79,7 @@ const BurgerConstructor: FC = () => {
     bun && setSelectedBun(bun);
     const bunPrice = (bun?.price ?? 0) * 2;
     setTotalPrice(
-      selectedItems.reduce((acc: number, iter: IIngredient) => {
+      selectedItems.reduce((acc: number, iter) => {
         return acc + iter?.price;
       }, 0) + bunPrice
     );
@@ -137,7 +137,7 @@ const BurgerConstructor: FC = () => {
         </div>
       )}
       <div ref={dropTarget} className={burgerConstructorStyles.items}>
-        {selectedItems.map((item: IIngredientItem, index: number) => {
+        {selectedItems.map((item, index) => {
           return (
             <ConstructorItem
               key={item?.dragId}

@@ -1,22 +1,15 @@
-
 import {
   WS_CONNECTION_START,
   WS_CONNECTION_SUCCESS,
   WS_CONNECTION_ERROR,
   WS_GET_MESSAGE,
   WS_CONNECTION_CLOSED,
-  WS_MY_ORDERS_CONNECTION_START,
 } from '../constants/socket';
 
 
 export interface IWsConnectionStart {
   readonly type: typeof WS_CONNECTION_START;
-
-}
-
-export interface IWsMyOrdersConnectionStart {
-  readonly type: typeof WS_MY_ORDERS_CONNECTION_START;
-
+  readonly payload: any;
 }
 
 export interface IWsConnectionSuccess {
@@ -43,5 +36,4 @@ export type TSocketActions =
   | IWsConnectionSuccess
   | IWsConnectionError
   | IWsGetMessage
-  | IWsCloseConection
-  | IWsMyOrdersConnectionStart;
+  | IWsCloseConection;

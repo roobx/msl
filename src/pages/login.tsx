@@ -26,7 +26,7 @@ const Login: FC = () => {
   const onSubmitLogin = useCallback((e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(signIn(emailValue, passwordValue));
-    console.log('124')
+
   }, [dispatch, emailValue, passwordValue]);
   useEffect(() => {
     dispatch(getUser());
@@ -36,6 +36,7 @@ const Login: FC = () => {
     return <Redirect
       to={from}
     />
+
   }
 
   return (

@@ -18,7 +18,7 @@ const Order: FC<ISocketDataOrder> = ({ _id, number, createdAt, name, ingredients
       ? `/feed/${_id}`
       : `/profile/orders/${_id}`;
 
-  const ingredientsObjects = ingredients.map((id: string) => allIngridients.filter((item: IIngredient) => item._id === id)).flat();
+  const ingredientsObjects = ingredients.map((id) => allIngridients.filter((item: IIngredient) => item._id === id)).flat();
 
   const uniqIngredientsObjects = ingredientsObjects.reduce((acc: IIngredient[], item: IIngredient) => {
     if (acc.includes(item)) {
@@ -43,7 +43,7 @@ const Order: FC<ISocketDataOrder> = ({ _id, number, createdAt, name, ingredients
         <ul className={`${orderStyles.order_ingridients_images}`}>
           {uniqIngredientsObjects
             .slice(0, 6)
-            .map((ingredientsObject: IIngredient, index: number) =>
+            .map((ingredientsObject, index) =>
             (
               <li key={ingredientsObject._id}
                 className={`text text_type_digits-default ${orderStyles.order_ingridients_image} ${index === 5 && uniqIngredientsObjects.length > 6 ? orderStyles.order_ingridients_image_last : ''}`}

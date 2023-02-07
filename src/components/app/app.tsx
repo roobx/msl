@@ -73,10 +73,9 @@ const App: FC = () => {
               <ProtectedRoute exact path="/profile">
                 <Profile />
               </ProtectedRoute>
-              <ProtectedRoute exact path="/profile/orders">
+              <Route exact path="/profile/orders">
                 <Profile />
-              </ProtectedRoute>
-
+              </Route>
               <Route path='/ingredients/:ingredientId' exact>
                 <div className={appStyles.ingridient}>
                   <IngredientDetails />
@@ -126,7 +125,7 @@ const App: FC = () => {
                   path='/profile/orders/:id'
                   children={
                     <Modal
-                      opened={currentIngridientDetails ? true : false}
+                      opened={true}
                       onClose={() => history.goBack()}
                     >
                       <OrderInfo />

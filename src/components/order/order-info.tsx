@@ -2,8 +2,7 @@ import { FC, useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from '../../services/hooks';
 import orderStyles from './order.module.css';
 import {
-  WS_CONNECTION_START,
-  WS_MY_ORDERS_CONNECTION_START
+  WS_CONNECTION_START
 } from '../../services/constants/socket';
 import { useLocation } from "react-router";
 import { ILocation } from '../../utils/types';
@@ -11,32 +10,28 @@ import { ISocketDataOrder } from '../../utils/types';
 import { IIngredient } from '../../utils/types';
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { getOrderDate, getOrderPrice } from '../../utils/utils';
+import { wsUrl } from '../../utils/consts';
+import { getCookie } from '../../utils/utils';
 
 const OrderInfo: FC = () => {
   const dispatch = useDispatch();
   const { orders } = useSelector((state) => state.feed);
   const location = useLocation<ILocation>();
   const allIngridients = useSelector((state) => state.ingridients.ingridients);
+  const accessToken = getCookie("accessToken");
+  const token = accessToken?.split('Bearer ')[1];
 
   useEffect(() => {
     if (orders.length === 0 && location.pathname.includes('feed')) {
       dispatch(
-        { type: WS_CONNECTION_START }
+        { type: WS_CONNECTION_START, payload: `${wsUrl}/all` }
       );
-
-    }
-
-    if (orders.length === 0 && location.pathname.includes('profile')) {
-      dispatch(
-        { type: WS_MY_ORDERS_CONNECTION_START }
-      );
-
     }
 
   }, [dispatch, location]);
 
   const currentOrder = useMemo(
-    () => orders.find((i: ISocketDataOrder) => i._id === location.pathname.replace('/feed/', '') || i._id === location.pathname.replace('/profile/orders/', '')),
+    () => orders?.find((i: ISocketDataOrder) => i._id === location.pathname.replace('/feed/', '') || i._id === location.pathname.replace('/profile/orders/', '')),
     [orders, location]);
 
   const ingredientsObjects = currentOrder?.ingredients.map((id: string) => allIngridients.filter((item: IIngredient) => item._id === id)).flat();

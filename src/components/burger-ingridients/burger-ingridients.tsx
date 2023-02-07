@@ -93,8 +93,8 @@ const BurgerIngriiednts: FC = () => {
             <p ref={tab.ref} className='text text_type_main-medium mb-6'>{tab.name}</p>
             <div className={`pl-4 pr-4 ${burgerIngridientsStyles.grid_container}`}>
               {
-                ingridients.filter((item: IIngredient) => item.type === tab.code)
-                  .map((i: IIngredient) =>
+                ingridients.filter((item) => item.type === tab.code)
+                  .map((i) =>
                     <BurgerIngridient key={i._id} onClick={onIngredientClick(i)} count={getCount(i._id)} ingridient={i} />
                   )
               }

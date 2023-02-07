@@ -7,13 +7,14 @@ import {
 } from '../../services/constants/socket';
 import { ISocketDataOrder } from '../../utils/types';
 import feedStyles from './feed.module.css';
+import { wsUrl } from '../../utils/consts';
 
 const Feed: FC = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(
-      { type: WS_CONNECTION_START }
+      { type: WS_CONNECTION_START, payload: `${wsUrl}/all` }
     );
     return () => {
       dispatch(
@@ -26,7 +27,7 @@ const Feed: FC = () => {
 
   return (
     <div className={`mr-2 ${feedStyles.items}`}>
-      {orders.map((order: ISocketDataOrder) => (<Order key={order._id} {...order} />))}
+      {orders?.map((order: ISocketDataOrder) => (<Order key={order._id} {...order} />))}
     </div>
   );
 }

@@ -5,7 +5,14 @@ import { TCurrentIngridientActions } from '../services/actions/current-ingridien
 import { TCurrentUserActions } from '../services/actions/current-user';
 import { TIngridientsActions } from '../services/actions/ingridients';
 import { TOrderActions } from '../services/actions/order';
-import { TSocketActions } from '../services/actions/socket'
+import { TSocketActions } from '../services/actions/socket';
+import {
+  WS_CONNECTION_START,
+  WS_CONNECTION_SUCCESS,
+  WS_CONNECTION_ERROR,
+  WS_GET_MESSAGE,
+  WS_CONNECTION_CLOSED,
+} from '../services/constants/socket';
 import type { } from "redux-thunk/extend-redux";
 
 export type RootState = ReturnType<typeof rootReducer>;
@@ -23,6 +30,22 @@ export type TAppActions = {
   payload?: string;
 }
 
+export const wsActions = {
+  wsInit: WS_CONNECTION_START,
+  onOpen: WS_CONNECTION_SUCCESS,
+  onClose: WS_CONNECTION_CLOSED,
+  onError: WS_CONNECTION_ERROR,
+  onMessage: WS_GET_MESSAGE
+}
+
+
+export type TypesWS = {
+  wsInit: typeof WS_CONNECTION_START;
+  onOpen: typeof WS_CONNECTION_SUCCESS;
+  onClose: typeof WS_CONNECTION_CLOSED;
+  onError: typeof WS_CONNECTION_ERROR;
+  onMessage: typeof WS_GET_MESSAGE;
+}
 
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,
