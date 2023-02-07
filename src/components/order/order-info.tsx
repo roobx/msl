@@ -26,6 +26,10 @@ const OrderInfo: FC = () => {
       dispatch(
         { type: WS_CONNECTION_START, payload: `${wsUrl}/all` }
       );
+    } else if (orders.length === 0) {
+      dispatch(
+        { type: WS_CONNECTION_START, payload: `${wsUrl}?token=${token}` }
+      );
     }
 
   }, [dispatch, location]);
