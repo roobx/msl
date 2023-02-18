@@ -142,7 +142,7 @@ const App: FC = () => {
   };
 
   return (
-    <Router>
+    <Router basename='/react-burger'>
       <ModalSwitch />
     </Router>
   );
