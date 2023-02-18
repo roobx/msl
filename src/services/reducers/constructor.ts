@@ -17,7 +17,7 @@ type TConstructorState = {
   selectedItems: IIngredientItem[];
 }
 
-const initialState: TConstructorState = {
+export const initialState: TConstructorState = {
   selectedConstructorIngridients: [],
   bunId: '',
   selectedItems: [],
@@ -51,7 +51,6 @@ export const constructorReducer = (state = initialState, action: TConstructorAct
         ...state,
         selectedConstructorIngridients: action.newIngridientsId,
         selectedItems: action.newSelectedItems
-
       }
     }
     case CLEAR_SELECTED_CONSTRUCTOR_INGRIDIENTS: {

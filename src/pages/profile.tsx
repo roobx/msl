@@ -32,7 +32,7 @@ const Pofile: FC = () => {
     dispatch(getUser());
 
   }, []);
-  console.log(location);
+
   useEffect(() => {
     setNameProfileValue(currentUser.name);
     setEmailProfileValue(currentUser.email);

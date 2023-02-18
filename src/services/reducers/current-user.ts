@@ -30,7 +30,7 @@ type TCurrentUserState = {
   currentUser: ICurrentUser;
 }
 
-const initialState: TCurrentUserState = {
+export const initialState: TCurrentUserState = {
   currentUser: {
     email: '',
     name: '',

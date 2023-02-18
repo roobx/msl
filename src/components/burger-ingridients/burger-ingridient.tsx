@@ -25,6 +25,7 @@ const BurgerIngridient: FC<IIngridientItem> = ({ ingridient, onClick, count }) =
         pathname: `/ingredients/${_id}`,
         state: { background: location, id: _id },
       }}
+      data-testid="ingredient"
     >
       <img src={ingridient.image} alt={ingridient.name} />
       {count > 0 && <Counter count={count} size="default" />}

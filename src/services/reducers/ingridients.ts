@@ -15,7 +15,7 @@ type TIngridientState = {
   ingridients: IIngredient[];
 }
 
-const initialState: TIngridientState = {
+export const initialState: TIngridientState = {
   ingridientsRequest: false,
   ingridientsFailed: false,
   ingridients: [],

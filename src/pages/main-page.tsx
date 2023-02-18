@@ -36,7 +36,7 @@ const MainPage: FC = () => {
         <div className={`pt-10 mr-10 ${pagesStyles.main_container}`}>
           <BurgerIngridients />
         </div>
-        <div className={`pt-25 ${pagesStyles.main_container}`}>
+        <div className={`pt-25 ${pagesStyles.main_container}`} data-testid="constructor">
           <BurgerConstructor />
         </div>
       </DndProvider>
