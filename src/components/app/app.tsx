@@ -1,5 +1,5 @@
 import { useCallback, useEffect, FC } from 'react';
-import { HashRouter as Router, Switch, Route, useHistory } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, useHistory } from 'react-router-dom';
 import { useLocation } from "react-router";
 import appStyles from './app.module.css';
 import AppHeader from '../app-header/app-header';
