@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/static/css/main.798a8f71.css",
-    "main.js": "/static/js/main.e8ad6d3d.js",
-    "static/media/JetBrainsMono-Bold.woff": "/static/media/JetBrainsMono-Bold.3914674f1cb2335acf26.woff",
-    "static/media/JetBrainsMono-Regular.woff": "/static/media/JetBrainsMono-Regular.f52bee61d00ce995b89f.woff",
-    "static/media/JetBrainsMono-Bold.woff2": "/static/media/JetBrainsMono-Bold.c232d532ea5a5189a278.woff2",
-    "static/media/JetBrainsMono-Regular.woff2": "/static/media/JetBrainsMono-Regular.b60380891bcf2eb241ca.woff2",
-    "static/media/iceland.woff": "/static/media/iceland.77ad7fc2baffd9305538.woff",
-    "static/media/iceland.woff2": "/static/media/iceland.4ae67a017a5ff82bbbb7.woff2",
-    "static/media/graphics.svg": "/static/media/graphics.6d4020a51e6d258e72a1298282fd63a7.svg",
-    "static/media/close.svg": "/static/media/close.c4c517b0a1656e7eaaae.svg",
-    "index.html": "/index.html",
-    "main.798a8f71.css.map": "/static/css/main.798a8f71.css.map",
-    "main.e8ad6d3d.js.map": "/static/js/main.e8ad6d3d.js.map"
+    "main.css": "./static/css/main.afe30065.css",
+    "main.js": "./static/js/main.60feeea0.js",
+    "static/media/JetBrainsMono-Bold.woff": "./static/media/JetBrainsMono-Bold.3914674f1cb2335acf26.woff",
+    "static/media/JetBrainsMono-Regular.woff": "./static/media/JetBrainsMono-Regular.f52bee61d00ce995b89f.woff",
+    "static/media/JetBrainsMono-Bold.woff2": "./static/media/JetBrainsMono-Bold.c232d532ea5a5189a278.woff2",
+    "static/media/JetBrainsMono-Regular.woff2": "./static/media/JetBrainsMono-Regular.b60380891bcf2eb241ca.woff2",
+    "static/media/iceland.woff": "./static/media/iceland.77ad7fc2baffd9305538.woff",
+    "static/media/iceland.woff2": "./static/media/iceland.4ae67a017a5ff82bbbb7.woff2",
+    "static/media/graphics.svg": "./static/media/graphics.6d4020a51e6d258e72a1298282fd63a7.svg",
+    "static/media/close.svg": "./static/media/close.c4c517b0a1656e7eaaae.svg",
+    "index.html": "./index.html",
+    "main.afe30065.css.map": "./static/css/main.afe30065.css.map",
+    "main.60feeea0.js.map": "./static/js/main.60feeea0.js.map"
   },
   "entrypoints": [
-    "static/css/main.798a8f71.css",
-    "static/js/main.e8ad6d3d.js"
+    "static/css/main.afe30065.css",
+    "static/js/main.60feeea0.js"
   ]
 }
